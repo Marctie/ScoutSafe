@@ -43,13 +43,22 @@ const formSchema = z.object({
   environmentalConditions: z.string(),
 });
 
+const formLabels: { [key: string]: string } = {
+  tentMaterial: 'Materiale della Tenda',
+  tentSize: 'Dimensioni della Tenda',
+  weightDistribution: 'Distribuzione del Peso',
+  knotType: 'Tipo di Nodo',
+  windResistance: 'Resistenza al Vento',
+  environmentalConditions: 'Condizioni Ambientali',
+};
+
 const formOptions = {
-  tentMaterial: ['Nylon', 'Polyester', 'Canvas', 'Cuben Fiber'],
-  tentSize: ['1-person', '2-person', '4-person', '6+ person'],
-  weightDistribution: ['Even', 'Uneven - front heavy', 'Uneven - back heavy'],
-  knotType: ['Square Knot', 'Bowline', 'Taut-line Hitch', 'Two Half Hitches'],
-  windResistance: ['Low (up to 20 mph)', 'Medium (up to 30 mph)', 'High (up to 40+ mph)'],
-  environmentalConditions: ['Clear skies, calm', 'Light rain, mild breeze', 'Heavy rain, strong winds', 'Snow, cold'],
+  tentMaterial: ['Nylon', 'Poliestere', 'Tela', 'Fibra di Cuben'],
+  tentSize: ['1 persona', '2 persone', '4 persone', '6+ persone'],
+  weightDistribution: ['Uniforme', 'Non uniforme - pesante davanti', 'Non uniforme - pesante dietro'],
+  knotType: ['Nodo piano', 'Gassa d\'amante', 'Nodo autobloccante', 'Due mezzi colli'],
+  windResistance: ['Bassa (fino a 32 km/h)', 'Media (fino a 48 km/h)', 'Alta (fino a 64+ km/h)'],
+  environmentalConditions: ['Cielo sereno, calmo', 'Pioggia leggera, brezza mite', 'Pioggia intensa, venti forti', 'Neve, freddo'],
 };
 
 export default function TentStabilitySimulator() {
@@ -61,11 +70,11 @@ export default function TentStabilitySimulator() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       tentMaterial: 'Nylon',
-      tentSize: '2-person',
-      weightDistribution: 'Even',
-      knotType: 'Taut-line Hitch',
-      windResistance: 'Medium (up to 30 mph)',
-      environmentalConditions: 'Light rain, mild breeze',
+      tentSize: '2 persone',
+      weightDistribution: 'Uniforme',
+      knotType: 'Nodo autobloccante',
+      windResistance: 'Media (fino a 48 km/h)',
+      environmentalConditions: 'Pioggia leggera, brezza mite',
     },
   });
 
@@ -76,15 +85,15 @@ export default function TentStabilitySimulator() {
       const result = await tentStabilitySimulation(values as TentStabilityInput);
       setTentSimResult(result);
       toast({
-        title: "Simulation Complete",
-        description: "Tent stability analysis is ready.",
+        title: "Simulazione Completata",
+        description: "L'analisi della stabilità della tenda è pronta.",
       });
     } catch (error) {
-      console.error("Error running simulation:", error);
+      console.error("Errore durante l'esecuzione della simulazione:", error);
       toast({
         variant: "destructive",
-        title: "Simulation Error",
-        description: "Could not complete the tent stability simulation.",
+        title: "Errore di Simulazione",
+        description: "Impossibile completare la simulazione della stabilità della tenda.",
       });
     } finally {
       setLoading(false);
@@ -96,10 +105,10 @@ export default function TentStabilitySimulator() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Tent className="text-primary" />
-          Tent Stability Simulator
+          Simulatore di Stabilità della Tenda
         </CardTitle>
         <CardDescription>
-          Assess tent stability based on various parameters.
+          Valuta la stabilità della tenda in base a vari parametri.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -113,11 +122,11 @@ export default function TentStabilitySimulator() {
                   name={key as keyof z.infer<typeof formSchema>}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</FormLabel>
+                      <FormLabel>{formLabels[key]}</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={`Select ${key}`} />
+                            <SelectValue placeholder={`Seleziona ${formLabels[key].toLowerCase()}`} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -136,10 +145,10 @@ export default function TentStabilitySimulator() {
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Simulating...
+                  Simulazione in corso...
                 </>
               ) : (
-                "Run Simulation"
+                "Esegui Simulazione"
               )}
             </Button>
           </form>

@@ -29,7 +29,7 @@ import { useScoutSafe } from "@/contexts/ScoutSafeContext";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-  historicalIncidentData: z.string().min(10, "Please provide some historical data."),
+  historicalIncidentData: z.string().min(10, "Fornisci alcuni dati storici."),
 });
 
 export default function DynamicRecommendations() {
@@ -40,7 +40,7 @@ export default function DynamicRecommendations() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      historicalIncidentData: "Last year, a tent collapsed during a storm with 35 mph winds. Minor injuries reported. Also, had issues with campfire safety in dry conditions.",
+      historicalIncidentData: "L'anno scorso, una tenda è crollata durante una tempesta con venti a 35 mph. Segnalati feriti lievi. Inoltre, problemi con la sicurezza dei falò in condizioni di siccità.",
     },
   });
 
@@ -48,8 +48,8 @@ export default function DynamicRecommendations() {
     if (!tentSimResult) {
       toast({
         variant: "destructive",
-        title: "Simulation Required",
-        description: "Please run the Tent Stability Simulation first.",
+        title: "Simulazione Richiesta",
+        description: "Esegui prima la Simulazione della Stabilità della Tenda.",
       });
       return;
     }
@@ -65,15 +65,15 @@ export default function DynamicRecommendations() {
       });
       setDynamicRecResult(result);
       toast({
-        title: "Recommendations Generated",
-        description: "AI-powered safety advice is now available.",
+        title: "Raccomandazioni Generate",
+        description: "I consigli di sicurezza basati sull'IA sono ora disponibili.",
       });
     } catch (error) {
-      console.error("Error generating recommendations:", error);
+      console.error("Errore nella generazione delle raccomandazioni:", error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: "Failed to generate dynamic recommendations.",
+        title: "Errore",
+        description: "Impossibile generare le raccomandazioni dinamiche.",
       });
     } finally {
       setLoading(false);
@@ -87,10 +87,10 @@ export default function DynamicRecommendations() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="text-primary" />
-              Dynamic Recommendation Tool
+              Strumento di Raccomandazione Dinamica
             </CardTitle>
             <CardDescription>
-              AI-powered advice based on simulation results and historical data.
+              Consigli basati sull'IA in base ai risultati della simulazione e ai dati storici.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -99,10 +99,10 @@ export default function DynamicRecommendations() {
               name="historicalIncidentData"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Historical Incident Data</FormLabel>
+                  <FormLabel>Dati Storici degli Incidenti</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Describe past incidents, weather events, or safety concerns..."
+                      placeholder="Descrivi incidenti passati, eventi meteorologici o problemi di sicurezza..."
                       className="resize-none"
                       {...field}
                     />
@@ -117,10 +117,10 @@ export default function DynamicRecommendations() {
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Generating...
+                  Generazione...
                 </>
               ) : (
-                "Get AI Recommendations"
+                "Ottieni Raccomandazioni IA"
               )}
             </Button>
           </CardFooter>

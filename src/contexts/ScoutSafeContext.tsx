@@ -23,7 +23,7 @@ const ScoutSafeContext = createContext<ScoutSafeContextType | undefined>(undefin
 
 export function ScoutSafeProvider({ children }: { children: ReactNode }) {
   const [campDetails, setCampDetails] = useState<CampDetails>({
-    campName: "Pine Ridge Camp",
+    campName: "Campo di Poggio dei Pini",
     lat: 40.7128,
     lng: -74.006,
   });

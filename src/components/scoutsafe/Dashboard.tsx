@@ -41,9 +41,9 @@ export default function Dashboard() {
       <div className="lg:hidden">
          <Tabs defaultValue="setup" className="w-full">
           <TabsList className="grid w-full grid-cols-3 no-print">
-            <TabsTrigger value="setup">Setup</TabsTrigger>
-            <TabsTrigger value="analysis">Analysis</TabsTrigger>
-            <TabsTrigger value="report">Report</TabsTrigger>
+            <TabsTrigger value="setup">Impostazione</TabsTrigger>
+            <TabsTrigger value="analysis">Analisi</TabsTrigger>
+            <TabsTrigger value="report">Rapporto</TabsTrigger>
           </TabsList>
           <TabsContent value="setup" className="space-y-6 mt-6">
             <CampSetup />

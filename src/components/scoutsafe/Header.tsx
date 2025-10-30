@@ -13,8 +13,8 @@ export default function Header() {
           <span className="font-bold font-headline text-lg">ScoutSafe</span>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button variant="ghost">Login</Button>
-          <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">Sign Up</Button>
+          <Button variant="ghost">Accedi</Button>
+          <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">Registrati</Button>
         </div>
       </div>
     </header>

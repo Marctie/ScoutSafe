@@ -10,51 +10,51 @@ import { SeismicIcon } from "@/components/icons/SeismicIcon";
 
 type Risk = {
   name: string;
-  level: "Low" | "Medium" | "High" | "None";
+  level: "Basso" | "Medio" | "Alto" | "Nessuno";
   description: string;
   icon: React.ReactNode;
 };
 
 const risks: Risk[] = [
   {
-    name: "Flood Risk",
-    level: "Low",
-    description: "Area is not in a designated flood plain. Monitor nearby streams during heavy rain.",
+    name: "Rischio Alluvione",
+    level: "Basso",
+    description: "L'area non si trova in una piana alluvionale designata. Monitorare i corsi d'acqua vicini durante le forti piogge.",
     icon: <Waves className="h-6 w-6" />,
   },
   {
-    name: "Seismic Activity",
-    level: "None",
-    description: "Region has no recent or significant history of seismic events.",
+    name: "Attività Sismica",
+    level: "Nessuno",
+    description: "La regione non ha una storia recente o significativa di eventi sismici.",
     icon: <SeismicIcon className="h-6 w-6" />,
   },
   {
-    name: "Wind Hazard",
-    level: "Medium",
-    description: "Open fields may experience strong gusts. Ensure tents are properly secured.",
+    name: "Pericolo Vento",
+    level: "Medio",
+    description: "I campi aperti possono subire forti raffiche. Assicurarsi che le tende siano adeguatamente fissate.",
     icon: <Wind className="h-6 w-6" />,
   },
 ];
 
 const levelVariant: Record<Risk["level"], "default" | "secondary" | "destructive"> = {
-    None: "default",
-    Low: "default",
-    Medium: "secondary",
-    High: "destructive",
+    Nessuno: "default",
+    Basso: "default",
+    Medio: "secondary",
+    Alto: "destructive",
 };
 
 const levelClasses: Record<Risk["level"], string> = {
-    None: "bg-green-100 text-green-800 border-green-200",
-    Low: "bg-yellow-100 text-yellow-800 border-yellow-200",
-    Medium: "bg-orange-100 text-orange-800 border-orange-200",
-    High: "bg-red-100 text-red-800 border-red-200",
+    Nessuno: "bg-green-100 text-green-800 border-green-200",
+    Basso: "bg-yellow-100 text-yellow-800 border-yellow-200",
+    Medio: "bg-orange-100 text-orange-800 border-orange-200",
+    Alto: "bg-red-100 text-red-800 border-red-200",
 }
 
 export default function EnvironmentalRisks() {
   return (
     <Card className="print-section">
       <CardHeader>
-        <CardTitle>Environmental Risk Analysis</CardTitle>
+        <CardTitle>Analisi dei Rischi Ambientali</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4 md:grid-cols-3">
         {risks.map((risk) => (

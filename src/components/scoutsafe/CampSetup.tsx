@@ -26,9 +26,9 @@ import { useScoutSafe } from "@/contexts/ScoutSafeContext";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-  campName: z.string().min(3, "Camp name must be at least 3 characters."),
-  lat: z.coerce.number().min(-90).max(90, "Latitude must be between -90 and 90."),
-  lng: z.coerce.number().min(-180).max(180, "Longitude must be between -180 and 180."),
+  campName: z.string().min(3, "Il nome del campo deve contenere almeno 3 caratteri."),
+  lat: z.coerce.number().min(-90, "La latitudine deve essere compresa tra -90 e 90.").max(90, "La latitudine deve essere compresa tra -90 e 90."),
+  lng: z.coerce.number().min(-180, "La longitudine deve essere compresa tra -180 e 180.").max(180, "La longitudine deve essere compresa tra -180 e 180."),
 });
 
 export default function CampSetup() {
@@ -38,7 +38,7 @@ export default function CampSetup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      campName: "Pine Ridge Camp",
+      campName: "Campo di Poggio dei Pini",
       lat: 40.7128,
       lng: -74.006,
     },
@@ -47,8 +47,8 @@ export default function CampSetup() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     setCampDetails(values);
     toast({
-      title: "Camp Updated",
-      description: `${values.campName} location has been set on the map.`,
+      title: "Campo Aggiornato",
+      description: `La posizione del campo ${values.campName} è stata impostata sulla mappa.`,
     });
   }
 
@@ -57,10 +57,10 @@ export default function CampSetup() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <MapPin className="text-primary" />
-          Camp Setup
+          Impostazione Campo
         </CardTitle>
         <CardDescription>
-          Enter your camp's details to get started.
+          Inserisci i dettagli del tuo campo per iniziare.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -71,9 +71,9 @@ export default function CampSetup() {
               name="campName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Camp Name</FormLabel>
+                  <FormLabel>Nome del Campo</FormLabel>
                   <FormControl>
-                    <Input placeholder="E.g., Whispering Pines" {...field} />
+                    <Input placeholder="Es., Pineta Silenziosa" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -85,7 +85,7 @@ export default function CampSetup() {
                 name="lat"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Latitude</FormLabel>
+                    <FormLabel>Latitudine</FormLabel>
                     <FormControl>
                       <Input type="number" step="0.0001" {...field} />
                     </FormControl>
@@ -98,7 +98,7 @@ export default function CampSetup() {
                 name="lng"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Longitude</FormLabel>
+                    <FormLabel>Longitudine</FormLabel>
                     <FormControl>
                       <Input type="number" step="0.0001" {...field} />
                     </FormControl>
@@ -108,7 +108,7 @@ export default function CampSetup() {
               />
             </div>
             <Button type="submit" className="w-full">
-              Update Camp Location
+              Aggiorna Posizione Campo
             </Button>
           </form>
         </Form>
