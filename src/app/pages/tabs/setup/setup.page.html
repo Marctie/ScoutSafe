@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>⛺ Impostazione Campo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background:#faf7ed;">
+  <div class="ion-padding">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Dettagli del Campo</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-label position="floating">Nome del Campo</ion-label>
+            <ion-input formControlName="name" placeholder="es. Campo Monte Verde"></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" fill="outline" color="primary" (click)="getGPS()" style="margin-top:16px;">
+            <ion-icon name="location-outline" slot="start"></ion-icon>
+            Usa GPS
+          </ion-button>
+
+          <ion-grid style="margin-top:8px;">
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Latitudine</ion-label>
+                  <ion-input type="number" formControlName="lat" step="0.000001"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">Longitudine</ion-label>
+                  <ion-input type="number" formControlName="lng" step="0.000001"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <p style="font-size:12px;color:#6c757d;text-align:center;margin:8px 0;">
+            Puoi anche toccare la mappa per impostare la posizione
+          </p>
+
+          <ion-button expand="block" [disabled]="form.invalid" (click)="save()" style="--background:#386641;margin-top:8px;">
+            <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+            Salva Campo
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <div id="map-container" style="height:300px;border-radius:12px;overflow:hidden;margin-top:8px;border:2px solid #386641;"></div>
+  </div>
+</ion-content>

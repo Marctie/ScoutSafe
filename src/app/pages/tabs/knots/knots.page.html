@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>🪢 Consiglio Nodi</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background:#faf7ed;">
+  <div class="ion-padding">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Descrivi la situazione</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-label>Uso principale</ion-label>
+            <ion-select formControlName="useCase" interface="action-sheet">
+              <ion-select-option value="anchor">Ancoraggio</ion-select-option>
+              <ion-select-option value="join">Unire corde</ion-select-option>
+              <ion-select-option value="loop">Creare un anello</ion-select-option>
+              <ion-select-option value="hitch">Attaccare a palo</ion-select-option>
+              <ion-select-option value="binding">Legare/Fissare</ion-select-option>
+              <ion-select-option value="climbing">Arrampicata</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Scopo</ion-label>
+            <ion-select formControlName="purpose" interface="action-sheet">
+              <ion-select-option value="tent">Tenda</ion-select-option>
+              <ion-select-option value="flagpole">Bandiera / Asta</ion-select-option>
+              <ion-select-option value="bridge">Ponte di corda</ion-select-option>
+              <ion-select-option value="tool">Attrezzatura</ion-select-option>
+              <ion-select-option value="rescue">Soccorso</ion-select-option>
+              <ion-select-option value="general">Generale</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Condizione corda</ion-label>
+            <ion-select formControlName="ropeCondition" interface="action-sheet">
+              <ion-select-option value="dry">Asciutta</ion-select-option>
+              <ion-select-option value="wet">Bagnata</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Tipo di corda</ion-label>
+            <ion-select formControlName="ropeType" interface="action-sheet">
+              <ion-select-option value="synthetic">Sintetica (nylon, poliestere)</ion-select-option>
+              <ion-select-option value="natural">Naturale (sisal, canapa)</ion-select-option>
+              <ion-select-option value="mixed">Misto</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Tipo di carico</ion-label>
+            <ion-select formControlName="loadType" interface="action-sheet">
+              <ion-select-option value="static">Statico</ion-select-option>
+              <ion-select-option value="dynamic">Dinamico</ion-select-option>
+              <ion-select-option value="heavy">Pesante</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Intensità vento</ion-label>
+            <ion-select formControlName="windIntensity" interface="action-sheet">
+              <ion-select-option value="none">Calmo</ion-select-option>
+              <ion-select-option value="light">Leggero</ion-select-option>
+              <ion-select-option value="medium">Moderato</ion-select-option>
+              <ion-select-option value="strong">Forte</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Esperienza scout</ion-label>
+            <ion-select formControlName="experience" interface="action-sheet">
+              <ion-select-option value="beginner">Principiante</ion-select-option>
+              <ion-select-option value="intermediate">Intermedio</ion-select-option>
+              <ion-select-option value="expert">Esperto</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-button expand="block" (click)="search()" style="margin-top:16px;--background:#386641;">
+            <ion-icon name="search-outline" slot="start"></ion-icon>
+            Trova il Nodo Giusto
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="searched && results.length === 0" style="text-align:center;padding:32px;">
+      <p>Nessun nodo trovato per questi parametri. Prova a modificare i criteri.</p>
+    </div>
+
+    <div *ngFor="let r of results; let i = index" style="margin-bottom:12px;">
+      <ion-card [style.border-left]="'4px solid ' + scoreColor(r.score)" style="border-radius:12px;">
+        <ion-item button (click)="toggle(r.knot.id)" detail="false" style="--background:transparent;">
+          <div slot="start" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#386641;color:white;font-weight:700;font-size:18px;">
+            {{i + 1}}
+          </div>
+          <ion-label>
+            <h2 style="font-weight:700;color:#386641;">{{r.knot.name}}</h2>
+            <p style="font-size:12px;color:#6c757d;">{{r.knot.englishName}}</p>
+            <p style="font-size:12px;color:#333;">{{r.reason}}</p>
+          </ion-label>
+          <div slot="end" style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <span style="font-size:20px;font-weight:700;" [style.color]="scoreColor(r.score)">{{r.score}}</span>
+            <ion-badge [style.--background]="difficultyColor(r.knot.difficulty)" style="font-size:10px;">{{r.knot.difficulty}}</ion-badge>
+          </div>
+        </ion-item>
+
+        <ion-card-content *ngIf="expandedKnot === r.knot.id">
+          <p>{{r.knot.description}}</p>
+
+          <h3 style="color:#386641;margin-top:16px;">📋 Come eseguirlo</h3>
+          <div *ngFor="let step of r.knot.steps" style="display:flex;gap:12px;margin-bottom:8px;">
+            <div style="min-width:24px;height:24px;border-radius:50%;background:#386641;color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">{{step.step}}</div>
+            <p style="margin:0;flex:1;">{{step.instruction}}</p>
+          </div>
+
+          <div *ngIf="r.knot.warnings.length > 0">
+            <h3 style="color:#eb445a;margin-top:16px;">⚠️ Attenzione</h3>
+            <p *ngFor="let w of r.knot.warnings" style="margin:4px 0;">• {{w}}</p>
+          </div>
+
+          <h3 style="color:#386641;margin-top:16px;">✅ Ideale per</h3>
+          <p *ngFor="let b of r.knot.bestFor" style="margin:4px 0;">• {{b}}</p>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+            <ion-badge color="success" *ngIf="r.knot.worksWet">🌧️ Funziona bagnato</ion-badge>
+            <ion-badge color="medium" *ngIf="!r.knot.worksWet">☀️ Solo asciutto</ion-badge>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

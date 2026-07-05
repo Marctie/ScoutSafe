@@ -1,0 +1,32 @@
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+@import "~leaflet/dist/leaflet.css";
+
+.risk-badge-low { --background: #2dd36f; --color: #000; }
+.risk-badge-medium { --background: #ffc409; --color: #000; }
+.risk-badge-high { --background: #eb445a; --color: #fff; }
+.risk-badge-none { --background: #92949c; --color: #fff; }
+
+.risk-card-low { border-left: 4px solid #2dd36f; }
+.risk-card-medium { border-left: 4px solid #ffc409; }
+.risk-card-high { border-left: 4px solid #eb445a; }
+.risk-card-none { border-left: 4px solid #92949c; }
+
+.knot-score-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #386641, #bc6c25);
+}
+
+ion-tab-bar { --border: none; box-shadow: 0 -2px 8px rgba(0,0,0,0.15); }
+ion-toolbar { --border-width: 0; }
+
+.leaflet-container { z-index: 1; }

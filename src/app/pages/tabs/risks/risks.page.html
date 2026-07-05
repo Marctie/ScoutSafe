@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>⚠️ Rischi Ambientali</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background:#faf7ed;">
+  <div class="ion-padding">
+
+    <ion-card *ngIf="!camp" color="warning" style="border-radius:12px;">
+      <ion-card-content>
+        <p style="margin:0;">⚠️ Configura prima il campo nella tab <strong>Campo</strong> per analizzare i rischi della tua posizione.</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="camp" style="border-radius:12px;">
+      <ion-card-content>
+        <p style="margin:0 0 12px;"><strong>📍 {{camp.name}}</strong><br>
+          <small style="color:#6c757d;">{{camp.lat.toFixed(4)}}, {{camp.lng.toFixed(4)}}</small>
+        </p>
+        <ion-button expand="block" [disabled]="loading" (click)="analyze()" style="--background:#386641;">
+          <ion-spinner *ngIf="loading" name="crescent" slot="start"></ion-spinner>
+          <ion-icon *ngIf="!loading" name="analytics-outline" slot="start"></ion-icon>
+          {{ loading ? 'Analisi in corso...' : 'Analizza Rischi' }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="error" color="danger" style="border-radius:12px;">
+      <ion-card-content>{{error}}</ion-card-content>
+    </ion-card>
+
+    <div *ngIf="assessment">
+      <p style="color:#6c757d;font-size:12px;text-align:center;">
+        Dati aggiornati al {{assessment.updatedAt | date:'dd/MM/yyyy HH:mm'}} · Previsione 3 giorni
+      </p>
+
+      <ion-card *ngFor="let item of riskItems" [class]="levelClass(item.level)" style="border-radius:12px;margin-bottom:12px;">
+        <ion-item lines="none" style="--background:transparent;">
+          <div slot="start" style="font-size:28px;">{{item.icon}}</div>
+          <ion-label>
+            <h2 style="font-weight:600;">{{item.name}}</h2>
+            <p>{{item.description}}</p>
+          </ion-label>
+          <div slot="end" style="text-align:center;">
+            <ion-badge [class]="badgeClass(item.level)" style="display:block;padding:6px 10px;border-radius:8px;">
+              {{levelLabel(item.level)}}
+            </ion-badge>
+            <small *ngIf="item.value" style="color:#6c757d;font-size:11px;display:block;margin-top:4px;">{{item.value}}</small>
+          </div>
+        </ion-item>
+      </ion-card>
+
+      <ion-card style="border-radius:12px;background:#e8f5e9;">
+        <ion-card-content>
+          <p style="margin:0;font-size:13px;color:#386641;">
+            <strong>💡 Fonte dati:</strong> Meteo da Open-Meteo (previsione 3 giorni) · Sismi da USGS (ultimi 7 giorni, raggio 150km)
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

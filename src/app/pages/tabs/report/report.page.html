@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>📋 Rapporto Sicurezza</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background:#faf7ed;">
+  <div class="ion-padding">
+
+    <ion-card *ngIf="!hasData" color="light" style="border-radius:12px;text-align:center;padding:16px;">
+      <ion-card-content>
+        <div style="font-size:48px;margin-bottom:8px;">📝</div>
+        <p>Completa la configurazione del campo e almeno una analisi (nodi o rischi) per generare il rapporto.</p>
+      </ion-card-content>
+    </ion-card>
+
+    <div *ngIf="hasData">
+      <!-- HEADER CARD -->
+      <ion-card style="border-radius:12px;background:linear-gradient(135deg,#386641,#4c7554);color:white;">
+        <ion-card-content>
+          <div style="font-size:36px;text-align:center;margin-bottom:8px;">⛺</div>
+          <h1 style="text-align:center;font-size:22px;font-weight:700;color:white;margin:0;">{{camp?.name}}</h1>
+          <p style="text-align:center;color:rgba(255,255,255,0.8);margin:4px 0 0;">
+            {{camp?.lat?.toFixed(4)}}, {{camp?.lng?.toFixed(4)}} · {{today | date:'dd/MM/yyyy'}}
+          </p>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- NODI -->
+      <ion-card *ngIf="knotResults.length > 0" style="border-radius:12px;">
+        <ion-card-header>
+          <ion-card-title style="color:#386641;font-size:16px;">🪢 Nodi Consigliati</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngFor="let r of knotResults; let i = index" style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #eee;">
+            <div style="width:28px;height:28px;border-radius:50%;background:#386641;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;">{{i+1}}</div>
+            <div style="flex:1;">
+              <strong>{{r.knot.name}}</strong><br>
+              <small style="color:#6c757d;">{{r.knot.englishName}} · Punteggio: {{r.score}}</small>
+            </div>
+            <ion-badge [color]="r.knot.difficulty === 'facile' ? 'success' : r.knot.difficulty === 'medio' ? 'warning' : 'danger'">
+              {{r.knot.difficulty}}
+            </ion-badge>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- RISCHI -->
+      <ion-card *ngIf="risks" style="border-radius:12px;">
+        <ion-card-header>
+          <ion-card-title style="color:#386641;font-size:16px;">⚠️ Rischi Ambientali</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div *ngFor="let item of riskItems" style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #eee;">
+            <span>{{item.icon}} {{item.name}}</span>
+            <ion-badge [color]="item.level === 'nessuno' ? 'medium' : item.level === 'basso' ? 'success' : item.level === 'medio' ? 'warning' : 'danger'">
+              {{levelLabel(item.level)}}
+            </ion-badge>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- NOTE -->
+      <ion-card style="border-radius:12px;">
+        <ion-card-header>
+          <ion-card-title style="color:#386641;font-size:16px;">📝 Note</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-textarea [(ngModel)]="notes" placeholder="Aggiungi note sulla sessione..." rows="4" style="--background:#f9f9f9;border-radius:8px;"></ion-textarea>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button expand="block" [disabled]="saved" (click)="save()" style="--background:#386641;margin-bottom:8px;">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        {{ saved ? 'Salvato ✓' : 'Salva nello Storico' }}
+      </ion-button>
+
+      <p style="text-align:center;font-size:12px;color:#6c757d;">Generato da ScoutSafe · Stai al sicuro, sii preparato.</p>
+    </div>
+  </div>
+</ion-content>
