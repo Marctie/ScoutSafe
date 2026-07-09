@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: 'risks', loadChildren: () => import('./risks/risks.module').then(m => m.RisksPageModule) },
       { path: 'report', loadChildren: () => import('./report/report.module').then(m => m.ReportPageModule) },
       { path: 'history', loadChildren: () => import('./history/history.module').then(m => m.HistoryPageModule) },
+      { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule) },
       { path: '', redirectTo: 'setup', pathMatch: 'full' }
     ]
   }

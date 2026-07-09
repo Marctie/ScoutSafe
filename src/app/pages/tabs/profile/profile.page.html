@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar style="--background:#386641;--color:#fff;">
+    <ion-title>Area personale</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background:#faf7ed;">
+
+  <div class="profile-header">
+    <div class="avatar">{{ initials }}</div>
+    <h2>Il mio account</h2>
+    <p>{{ email }}</p>
+  </div>
+
+  <ion-card class="stat-card">
+    <ion-card-header>
+      <ion-card-title>Le mie statistiche</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-value">{{ sessions.length }}</div>
+          <div class="stat-label">Sessioni salvate</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">{{ highRiskCount }}</div>
+          <div class="stat-label">Campi con rischio alto</div>
+        </div>
+      </div>
+      <ion-item lines="none" *ngIf="lastSession">
+        <ion-icon name="time-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h3>Ultima sessione</h3>
+          <p>{{ lastSession.camp.name }} — {{ lastSession.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!lastSession">
+        <ion-icon name="information-circle-outline" slot="start" color="medium"></ion-icon>
+        <ion-label color="medium">Nessuna sessione salvata finora. Crea un rapporto dalla scheda "Rapporto".</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Gestione dati</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="hint">Le sessioni sono salvate su questo dispositivo.</p>
+      <ion-button expand="block" fill="outline" color="danger" (click)="clearHistory()" [disabled]="sessions.length === 0">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Svuota storico
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Informazioni</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon name="ribbon-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h3>ScoutSafe</h3>
+          <p>La sicurezza del tuo campo scout — versione 1.0</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" button href="https://github.com/Marctie/ScoutSafe" target="_blank">
+        <ion-icon name="logo-github" slot="start"></ion-icon>
+        <ion-label>Codice sorgente e manuale utente</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="danger" (click)="logout()" style="margin-top:16px;">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Esci
+  </ion-button>
+
+</ion-content>
