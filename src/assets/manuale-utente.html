@@ -57,8 +57,6 @@
 <h1>ScoutSafe — Manuale Utente</h1>
 <p><strong>La sicurezza del tuo campo scout, in una sola app.</strong></p>
 <p>ScoutSafe ti accompagna in tutte le fasi dell&#39;allestimento di un campo: dalla scelta del luogo, alla selezione dei nodi giusti, fino alla valutazione dei rischi ambientali basata su dati meteo e sismici reali. Al termine puoi generare un rapporto di sicurezza completo e conservarlo nello storico.</p>
-<p>L&#39;app funziona da browser, su computer, tablet e smartphone, all&#39;indirizzo:</p>
-<p><strong><a href="https://marctie.github.io/ScoutSafe/">https://marctie.github.io/ScoutSafe/</a></strong></p>
 <hr>
 <h2>Indice</h2>
 <ol>
@@ -75,7 +73,6 @@
 <li><a href="#11-affidabilit%C3%A0-delle-funzioni">Affidabilità delle funzioni</a></li>
 <li><a href="#12-domande-frequenti">Domande frequenti</a></li>
 <li><a href="#13-avvertenze-importanti">Avvertenze importanti</a></li>
-<li><a href="#14-per-sviluppatori-build-android-e-ios">Per sviluppatori: build Android e iOS</a></li>
 </ol>
 <hr>
 <h2>1. Primi passi: l&#39;accesso</h2>
@@ -451,92 +448,6 @@ In parte: se hai già aperto ScoutSafe almeno una volta con connessione, l&#39;a
 </ul>
 </blockquote>
 <p>Buon campo! ⛺</p>
-<hr>
-<h2>14. Per sviluppatori: build Android e iOS</h2>
-<p>Questo capitolo è tecnico: si rivolge a chi vuole compilare l&#39;app come applicazione nativa invece di usarla via browser/PWA. Il progetto usa <strong>Capacitor</strong>, che avvolge l&#39;app web in un contenitore nativo per Android e iOS.</p>
-<h3>14.1 Build Android</h3>
-<p><strong>Requisiti:</strong></p>
-<ul>
-<li><a href="https://nodejs.org/">Node.js</a> 20 o superiore</li>
-<li><a href="https://developer.android.com/studio">Android Studio</a> (include l&#39;Android SDK)</li>
-<li>Un JDK compatibile con Gradle. Android Studio include già un JDK adatto (percorso tipico su Windows: <code>C:\Program Files\Android\Android Studio\jbr</code>); se sul computer è installato anche un JDK molto recente (es. Java 24/25) come JDK &quot;di sistema&quot;, <strong>Gradle potrebbe non avviarsi</strong> con quello — in tal caso usa esplicitamente il JDK incluso in Android Studio (vedi sotto).</li>
-</ul>
-<p><strong>Passi:</strong></p>
-<ol>
-<li><p>Clona il repository e installa le dipendenze:</p>
-<pre><code class="language-bash">git clone https://github.com/Marctie/ScoutSafe.git
-cd ScoutSafe
-npm install
-</code></pre>
-</li>
-<li><p>Compila il progetto web e allinea la piattaforma Android (già presente nella cartella <code>android/</code>):</p>
-<pre><code class="language-bash">npm run build
-npx cap sync android
-</code></pre>
-</li>
-<li><p><strong>Opzione A — Android Studio (consigliata):</strong></p>
-<ul>
-<li>Apri la cartella <code>android/</code> come progetto in Android Studio.</li>
-<li>Attendi la sincronizzazione Gradle (automatica al primo avvio).</li>
-<li>Collega un telefono Android via USB con il <strong>debug USB attivo</strong>, oppure avvia un emulatore.</li>
-<li>Premi il pulsante ▶ <strong>Run</strong> per installare ed avviare l&#39;app sul dispositivo/emulatore.</li>
-<li>Per generare un APK installabile manualmente: menu <strong>Build → Build Bundle(s) / APK(s) → Build APK(s)</strong>. Il file compare in <code>android/app/build/outputs/apk/debug/app-debug.apk</code>.</li>
-</ul>
-<p><strong>Opzione B — riga di comando:</strong></p>
-<pre><code class="language-bash">cd android
-./gradlew assembleDebug
-</code></pre>
-<p>Se ottieni l&#39;errore <code>Unsupported class file major version</code>, il JDK di sistema è troppo recente per Gradle: imposta temporaneamente <code>JAVA_HOME</code> sul JDK incluso in Android Studio prima di lanciare il comando, ad esempio su Windows (PowerShell):</p>
-<pre><code class="language-powershell">$env:JAVA_HOME = &quot;C:\Program Files\Android\Android Studio\jbr&quot;
-$env:ANDROID_HOME = &quot;$env:LOCALAPPDATA\Android\Sdk&quot;
-./gradlew assembleDebug
-</code></pre>
-<p>L&#39;APK compilato si trova in <code>android/app/build/outputs/apk/debug/app-debug.apk</code>.</p>
-</li>
-<li><p><strong>Installare l&#39;APK su un telefono Android:</strong></p>
-<ul>
-<li>Copia il file <code>app-debug.apk</code> sul telefono (via cavo USB, email, cloud, ecc.).</li>
-<li>Sul telefono, apri il file: se richiesto, consenti l&#39;installazione da &quot;origini sconosciute&quot; per l&#39;app usata per aprirlo (impostazione richiesta una tantum da Android per motivi di sicurezza).</li>
-<li>Conferma l&#39;installazione. L&#39;icona di ScoutSafe comparirà tra le app installate.</li>
-<li>In alternativa, con il telefono collegato via USB e debug attivo, <code>npx cap run android</code> installa e avvia l&#39;app direttamente dal computer.</li>
-</ul>
-<p>Un APK di <strong>debug</strong> è pensato per test personali; per distribuirlo pubblicamente (Play Store) serve generare una build <strong>release firmata</strong> — la guida ufficiale è su <a href="https://capacitorjs.com/docs/android">capacitorjs.com/docs/android</a>.</p>
-</li>
-</ol>
-<h3>14.2 Build iOS</h3>
-<p><strong>Apple richiede obbligatoriamente un Mac con Xcode installato</strong>: non esiste un modo per compilare, firmare o installare un&#39;app iOS nativa da Windows o Linux, nemmeno con Capacitor (che si limita a generare un progetto Xcode — la compilazione vera e propria resta un passo che solo macOS può fare).</p>
-<p><strong>Se hai un Mac disponibile:</strong></p>
-<ol>
-<li>Installa <a href="https://apps.apple.com/app/xcode/id497799835">Xcode</a> dal Mac App Store (gratuito).</li>
-<li>Sul Mac, clona il repository e installa le dipendenze:<pre><code class="language-bash">git clone https://github.com/Marctie/ScoutSafe.git
-cd ScoutSafe
-npm install
-npm install @capacitor/ios
-</code></pre>
-</li>
-<li>Compila il progetto web e aggiungi/allinea la piattaforma iOS:<pre><code class="language-bash">npm run build
-npx cap add ios
-npx cap sync ios
-</code></pre>
-</li>
-<li>Apri il progetto in Xcode:<pre><code class="language-bash">npx cap open ios
-</code></pre>
-</li>
-<li>In Xcode:<ul>
-<li>Seleziona il progetto nel pannello di sinistra → scheda <strong>Signing &amp; Capabilities</strong>.</li>
-<li>In <strong>Team</strong>, seleziona il tuo Apple ID personale (per test su un tuo dispositivo, un Apple ID gratuito basta) oppure un <strong>Apple Developer Program</strong> attivo (99 $/anno) se vuoi pubblicare su App Store o distribuire a più persone con TestFlight.</li>
-<li>Collega l&#39;iPhone/iPad via cavo, selezionalo come dispositivo di destinazione in alto, e premi ▶ <strong>Run</strong>.</li>
-<li>Con un Apple ID gratuito, l&#39;app installata scade dopo 7 giorni e va ricompilata; con un account Developer a pagamento dura fino a un anno o è distribuibile via TestFlight/App Store.</li>
-</ul>
-</li>
-</ol>
-<p><strong>Se non hai un Mac:</strong> le alternative realistiche sono:</p>
-<ul>
-<li>Usare un Mac in prestito (anche solo per un pomeriggio, il processo sopra richiede poco tempo).</li>
-<li>Un servizio di &quot;Mac in cloud&quot; a noleggio (es. MacStadium, MacinCloud).</li>
-<li>Un servizio di build CI con runner macOS, come <strong>Codemagic</strong> o <strong>Ionic Appflow</strong>, che compilano il progetto Capacitor/iOS nel cloud e restituiscono un file installabile o un link TestFlight, senza bisogno di possedere un Mac.</li>
-<li>Nel frattempo, <strong>installare ScoutSafe come PWA da Safari</strong> (vedi <a href="#2-installare-scoutsafe-sul-tuo-dispositivo">capitolo 2</a>) copre già icona home page e uso offline parziale, senza alcuna delle limitazioni sopra.</li>
-</ul>
 
 </div>
 </body>
