@@ -13,16 +13,19 @@ L'app funziona da browser, su computer, tablet e smartphone, all'indirizzo:
 ## Indice
 
 1. [Primi passi: l'accesso](#1-primi-passi-laccesso)
-2. [La struttura dell'app](#2-la-struttura-dellapp)
-3. [Scheda "Campo": configurare il campo](#3-scheda-campo-configurare-il-campo)
-4. [Scheda "Nodi": il consigliere di nodi](#4-scheda-nodi-il-consigliere-di-nodi)
-5. [Scheda "Rischi": la valutazione ambientale](#5-scheda-rischi-la-valutazione-ambientale)
-6. [Scheda "Rapporto": il rapporto di sicurezza](#6-scheda-rapporto-il-rapporto-di-sicurezza)
-7. [Scheda "Storico": le sessioni salvate](#7-scheda-storico-le-sessioni-salvate)
-8. [Scheda "Profilo": l'area personale](#8-scheda-profilo-larea-personale)
-9. [Affidabilità delle funzioni](#9-affidabilità-delle-funzioni)
-10. [Domande frequenti](#10-domande-frequenti)
-11. [Avvertenze importanti](#11-avvertenze-importanti)
+2. [Installare ScoutSafe sul tuo dispositivo](#2-installare-scoutsafe-sul-tuo-dispositivo)
+3. [La struttura dell'app](#3-la-struttura-dellapp)
+4. [Scheda "Campo": configurare il campo](#4-scheda-campo-configurare-il-campo)
+5. [Scheda "Nodi": il consigliere di nodi](#5-scheda-nodi-il-consigliere-di-nodi)
+6. [Scheda "Rischi": la valutazione ambientale](#6-scheda-rischi-la-valutazione-ambientale)
+7. [Scheda "Rapporto": il rapporto di sicurezza](#7-scheda-rapporto-il-rapporto-di-sicurezza)
+8. [Scheda "Storico": le sessioni salvate](#8-scheda-storico-le-sessioni-salvate)
+9. [Scheda "Profilo": l'area personale](#9-scheda-profilo-larea-personale)
+10. [Modalità offline](#10-modalità-offline)
+11. [Affidabilità delle funzioni](#11-affidabilità-delle-funzioni)
+12. [Domande frequenti](#12-domande-frequenti)
+13. [Avvertenze importanti](#13-avvertenze-importanti)
+14. [Per sviluppatori: build Android e iOS](#14-per-sviluppatori-build-android-e-ios)
 
 ---
 
@@ -46,7 +49,48 @@ flowchart LR
 
 ---
 
-## 2. La struttura dell'app
+## 2. Installare ScoutSafe sul tuo dispositivo
+
+ScoutSafe è prima di tutto un'app web: funziona subito da browser, senza installazione, all'indirizzo indicato in cima a questo manuale. Ma puoi anche "installarla" per averla come una app vera e propria, con icona sulla schermata home e funzionamento offline parziale. Ci sono tre modi, in ordine di semplicità.
+
+### 2.1 Come PWA (consigliato, funziona su Android, iPhone/iPad e computer)
+
+ScoutSafe è una **Progressive Web App**: si installa direttamente dal browser, senza store, in pochi secondi.
+
+**Su Android (Chrome):**
+1. Apri l'app dal link nel browser.
+2. Tocca il menu (⋮) in alto a destra.
+3. Seleziona **"Installa app"** o **"Aggiungi a schermata Home"**.
+4. Conferma: l'icona di ScoutSafe comparirà tra le tue app.
+
+**Su iPhone/iPad (Safari):**
+1. Apri l'app dal link in Safari (l'installazione PWA su iOS funziona solo da Safari, non da Chrome).
+2. Tocca l'icona di condivisione (il quadrato con la freccia verso l'alto).
+3. Scorri e seleziona **"Aggiungi alla schermata Home"**.
+4. Conferma il nome e tocca **"Aggiungi"**.
+
+**Su computer (Chrome, Edge):**
+1. Apri l'app nel browser.
+2. Cerca l'icona di installazione nella barra degli indirizzi (di solito un'iconcina con un "+" o un monitor), oppure apri il menu del browser.
+3. Seleziona **"Installa ScoutSafe"**.
+
+Una volta installata, l'app si apre a schermo intero, ha una sua icona dedicata e conserva in cache le pagine già visitate per l'uso offline (vedi [capitolo 10](#10-modalità-offline)).
+
+### 2.2 Come app Android nativa (file APK)
+
+Se preferisci un vero file installabile (`.apk`) invece della PWA, puoi generarlo tu stesso a partire dal codice sorgente. Questo richiede un minimo di dimestichezza tecnica: la guida completa passo-passo è nel [capitolo 14](#14-per-sviluppatori-build-android-e-ios).
+
+In sintesi: il progetto include già la piattaforma Android (cartella `android/`), pronta per essere aperta in **Android Studio** e compilata in un APK da installare su qualunque telefono Android, oppure da pubblicare sul Play Store.
+
+### 2.3 Come app iOS nativa
+
+Apple richiede obbligatoriamente un **computer Mac con Xcode** per compilare, firmare e installare un'app iOS nativa: non è possibile farlo da Windows o Linux, nemmeno con Capacitor. Se non hai un Mac, la strada più semplice e già disponibile oggi è **installare ScoutSafe come PWA da Safari** (sezione 2.1): copre la stragrande maggioranza delle funzionalità, incluse icona sulla home e uso offline.
+
+Se in futuro avrai accesso a un Mac, la guida completa per generare e installare la versione iOS nativa è nel [capitolo 14](#14-per-sviluppatori-build-android-e-ios).
+
+---
+
+## 3. La struttura dell'app
 
 In basso trovi sei schede, pensate per essere usate in sequenza durante l'allestimento del campo:
 
@@ -71,7 +115,7 @@ flowchart LR
 
 ---
 
-## 3. Scheda "Campo": configurare il campo
+## 4. Scheda "Campo": configurare il campo
 
 È il punto di partenza di ogni sessione.
 
@@ -89,7 +133,7 @@ La posizione impostata qui viene usata dalla scheda **Rischi** per interrogare i
 
 ---
 
-## 4. Scheda "Nodi": il consigliere di nodi
+## 5. Scheda "Nodi": il consigliere di nodi
 
 Rispondi a poche domande e ricevi i **3 nodi più adatti** alla tua situazione, ordinati per punteggio di idoneità, con descrizione, istruzioni passo-passo e avvertenze.
 
@@ -118,7 +162,7 @@ flowchart TD
 
 ---
 
-## 5. Scheda "Rischi": la valutazione ambientale
+## 6. Scheda "Rischi": la valutazione ambientale
 
 Il cuore di ScoutSafe: un'analisi dei rischi del luogo del campo basata su **dati reali e aggiornati**, non su stime generiche.
 
@@ -149,7 +193,7 @@ flowchart TD
 
 ---
 
-## 6. Scheda "Rapporto": il rapporto di sicurezza
+## 7. Scheda "Rapporto": il rapporto di sicurezza
 
 Raccoglie in un unico documento tutto il lavoro fatto:
 
@@ -160,17 +204,20 @@ Raccoglie in un unico documento tutto il lavoro fatto:
 
 **Per salvare:** aggiungi le eventuali note e premi **Salva**. La sessione finisce nello **Storico** e nelle statistiche del **Profilo**.
 
+**Per esportare in PDF:** premi **Esporta PDF**. Viene generato e scaricato subito un file PDF con il nome del campo, la posizione, i nodi consigliati, la valutazione dei rischi e le tue note: pronto da condividere via email, WhatsApp o da stampare, anche senza passare dalla funzione di stampa del browser.
+
 Il rapporto è pensato anche per essere mostrato o stampato (dalla funzione di stampa del browser) come documento di riferimento per i capi campo.
 
-> Il pulsante Salva è attivo solo se hai almeno configurato il campo e ottenuto nodi o rischi: un rapporto vuoto non è salvabile.
+> Il pulsante Salva è attivo solo se hai almeno configurato il campo e ottenuto nodi o rischi: un rapporto vuoto non è salvabile. Il pulsante Esporta PDF invece funziona anche senza salvare prima, e può essere usato più volte.
 
 ---
 
-## 7. Scheda "Storico": le sessioni salvate
+## 8. Scheda "Storico": le sessioni salvate
 
 Qui trovi tutte le sessioni salvate, ordinate dalla più recente.
 
 - **Tocca una sessione** per espanderla e rivedere tutti i dettagli (campo, nodi, rischi, note).
+- **Esporta PDF** dalla sessione espansa: rigenera in qualsiasi momento il rapporto PDF di una sessione passata, anche mesi dopo.
 - **Elimina** una sessione con il pulsante dedicato (ti viene chiesta conferma).
 
 **Dove sono i dati?** Le sessioni sono salvate **sul dispositivo che stai usando** (nella memoria del browser). Questo significa:
@@ -181,7 +228,7 @@ Qui trovi tutte le sessioni salvate, ordinate dalla più recente.
 
 ---
 
-## 8. Scheda "Profilo": l'area personale
+## 9. Scheda "Profilo": l'area personale
 
 La tua area personale raccoglie account, statistiche e gestione dei dati.
 
@@ -192,13 +239,33 @@ La tua area personale raccoglie account, statistiche e gestione dei dati.
   - numero totale di sessioni salvate;
   - numero di campi in cui è stato rilevato almeno un rischio **alto**;
   - data e nome dell'ultima sessione salvata.
-- **Gestione dati** — il pulsante **Svuota storico** elimina in un colpo solo tutte le sessioni salvate su questo dispositivo (con richiesta di conferma; l'operazione non è reversibile).
+- **Gestione dati**:
+  - **Esporta backup (JSON)** — scarica un file `.json` con tutte le tue sessioni salvate. Usalo per fare una copia di sicurezza prima di cancellare i dati del browser, o per trasferire lo storico su un altro dispositivo.
+  - **Importa backup (JSON)** — carica un file esportato in precedenza: le sessioni contenute vengono aggiunte al tuo storico attuale (non sovrascrive quelle già presenti). Utile dopo aver cambiato dispositivo o reinstallato il browser.
+  - **Svuota storico** — elimina in un colpo solo tutte le sessioni salvate su questo dispositivo (con richiesta di conferma; l'operazione non è reversibile — se non sei sicuro, esporta prima un backup).
 - **Informazioni** — versione dell'app e collegamento al progetto.
 - **Esci** — chiude la sessione e torna alla schermata di accesso.
 
+> 💡 **Consiglio**: il file di backup contiene solo i dati del campo, dei nodi e dei rischi che hai salvato — nessun dato personale sensibile. Puoi conservarlo tranquillamente su un cloud (Google Drive, email a te stesso, ecc.).
+
 ---
 
-## 9. Affidabilità delle funzioni
+## 10. Modalità offline
+
+Da quando ScoutSafe è installabile come PWA (vedi [capitolo 2](#2-installare-scoutsafe-sul-tuo-dispositivo)), l'app salva automaticamente in cache le pagine, gli stili e gli script già visitati. Questo significa che:
+
+- **Dopo il primo caricamento**, puoi riaprire ScoutSafe anche senza connessione: l'app si avvia comunque e puoi consultare nodi già visualizzati e lo storico salvato.
+- **La mappa** mostra le tessere (i riquadri della cartina) già caricate in precedenza nella stessa zona; zone mai visitate prima richiedono connessione per scaricare le tessere.
+- **I dati di rischio** (meteo e sismici) vengono sempre richiesti aggiornati quando c'è connessione. Se per un breve periodo la connessione cade, l'app può mostrare l'ultimo dato ottenuto (fino a poche ore prima) invece di un errore; quando la connessione torna, i dati si aggiornano di nuovo in automatico alla prossima apertura della scheda Rischi.
+- **Lo storico e le sessioni salvate** funzionano sempre offline: sono salvati sul dispositivo, non dipendono da internet.
+
+**Cosa NON funziona offline:** il primo accesso in assoluto (serve scaricare l'app almeno una volta), l'analisi rischi su una posizione mai interrogata prima, e il caricamento di zone di mappa mai visualizzate.
+
+> 💡 Per un campo in zona senza copertura di rete, apri ScoutSafe e naviga tutte le schede **mentre sei ancora connesso** (es. da casa o in auto), così l'app avrà già in cache mappa, nodi e un'analisi rischi recente prima di partire.
+
+---
+
+## 11. Affidabilità delle funzioni
 
 Percentuali di affidabilità stimate per ogni funzione, con la motivazione. Le stime tengono conto della natura dei dati (deterministici o previsionali) e della qualità delle fonti.
 
@@ -220,7 +287,7 @@ Percentuali di affidabilità stimate per ogni funzione, con la motivazione. Le s
 
 ---
 
-## 10. Domande frequenti
+## 12. Domande frequenti
 
 **Posso usare l'app senza connessione?**
 In parte. Una volta caricata, la navigazione tra le schede, i nodi e lo storico funzionano offline. L'analisi dei rischi e il caricamento della mappa richiedono connessione.
@@ -240,9 +307,15 @@ Sì, dalla scheda Rapporto usa la stampa del browser (`Ctrl+P` su computer, menu
 **Ho dimenticato la password.**
 Le credenziali sono gestite dall'amministratore del progetto: contattalo per il recupero.
 
+**Posso avere una copia di sicurezza delle mie sessioni?**
+Sì: vai in **Profilo → Esporta backup (JSON)** per scaricare tutte le sessioni in un file. Con **Importa backup (JSON)** puoi ricaricarle in qualsiasi momento, anche su un altro dispositivo o dopo aver reinstallato il browser.
+
+**L'app funziona se non ho linea/rete durante il campo?**
+In parte: se hai già aperto ScoutSafe almeno una volta con connessione, l'app si installa in cache e resta utilizzabile (storico, nodi, mappa delle zone già viste). Vedi il [capitolo 10](#10-modalità-offline) per i dettagli.
+
 ---
 
-## 11. Avvertenze importanti
+## 13. Avvertenze importanti
 
 > ⚠️ **ScoutSafe è uno strumento di supporto alle decisioni, non le sostituisce.**
 >
@@ -252,3 +325,95 @@ Le credenziali sono gestite dall'amministratore del progetto: contattalo per il 
 > - La responsabilità finale della sicurezza del campo resta di chi lo conduce.
 
 Buon campo! ⛺
+
+---
+
+## 14. Per sviluppatori: build Android e iOS
+
+Questo capitolo è tecnico: si rivolge a chi vuole compilare l'app come applicazione nativa invece di usarla via browser/PWA. Il progetto usa **Capacitor**, che avvolge l'app web in un contenitore nativo per Android e iOS.
+
+### 14.1 Build Android
+
+**Requisiti:**
+- [Node.js](https://nodejs.org/) 20 o superiore
+- [Android Studio](https://developer.android.com/studio) (include l'Android SDK)
+- Un JDK compatibile con Gradle. Android Studio include già un JDK adatto (percorso tipico su Windows: `C:\Program Files\Android\Android Studio\jbr`); se sul computer è installato anche un JDK molto recente (es. Java 24/25) come JDK "di sistema", **Gradle potrebbe non avviarsi** con quello — in tal caso usa esplicitamente il JDK incluso in Android Studio (vedi sotto).
+
+**Passi:**
+
+1. Clona il repository e installa le dipendenze:
+   ```bash
+   git clone https://github.com/Marctie/ScoutSafe.git
+   cd ScoutSafe
+   npm install
+   ```
+
+2. Compila il progetto web e allinea la piattaforma Android (già presente nella cartella `android/`):
+   ```bash
+   npm run build
+   npx cap sync android
+   ```
+
+3. **Opzione A — Android Studio (consigliata):**
+   - Apri la cartella `android/` come progetto in Android Studio.
+   - Attendi la sincronizzazione Gradle (automatica al primo avvio).
+   - Collega un telefono Android via USB con il **debug USB attivo**, oppure avvia un emulatore.
+   - Premi il pulsante ▶ **Run** per installare ed avviare l'app sul dispositivo/emulatore.
+   - Per generare un APK installabile manualmente: menu **Build → Build Bundle(s) / APK(s) → Build APK(s)**. Il file compare in `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+   **Opzione B — riga di comando:**
+   ```bash
+   cd android
+   ./gradlew assembleDebug
+   ```
+   Se ottieni l'errore `Unsupported class file major version`, il JDK di sistema è troppo recente per Gradle: imposta temporaneamente `JAVA_HOME` sul JDK incluso in Android Studio prima di lanciare il comando, ad esempio su Windows (PowerShell):
+   ```powershell
+   $env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
+   $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+   ./gradlew assembleDebug
+   ```
+   L'APK compilato si trova in `android/app/build/outputs/apk/debug/app-debug.apk`.
+
+4. **Installare l'APK su un telefono Android:**
+   - Copia il file `app-debug.apk` sul telefono (via cavo USB, email, cloud, ecc.).
+   - Sul telefono, apri il file: se richiesto, consenti l'installazione da "origini sconosciute" per l'app usata per aprirlo (impostazione richiesta una tantum da Android per motivi di sicurezza).
+   - Conferma l'installazione. L'icona di ScoutSafe comparirà tra le app installate.
+   - In alternativa, con il telefono collegato via USB e debug attivo, `npx cap run android` installa e avvia l'app direttamente dal computer.
+
+   Un APK di **debug** è pensato per test personali; per distribuirlo pubblicamente (Play Store) serve generare una build **release firmata** — la guida ufficiale è su [capacitorjs.com/docs/android](https://capacitorjs.com/docs/android).
+
+### 14.2 Build iOS
+
+**Apple richiede obbligatoriamente un Mac con Xcode installato**: non esiste un modo per compilare, firmare o installare un'app iOS nativa da Windows o Linux, nemmeno con Capacitor (che si limita a generare un progetto Xcode — la compilazione vera e propria resta un passo che solo macOS può fare).
+
+**Se hai un Mac disponibile:**
+
+1. Installa [Xcode](https://apps.apple.com/app/xcode/id497799835) dal Mac App Store (gratuito).
+2. Sul Mac, clona il repository e installa le dipendenze:
+   ```bash
+   git clone https://github.com/Marctie/ScoutSafe.git
+   cd ScoutSafe
+   npm install
+   npm install @capacitor/ios
+   ```
+3. Compila il progetto web e aggiungi/allinea la piattaforma iOS:
+   ```bash
+   npm run build
+   npx cap add ios
+   npx cap sync ios
+   ```
+4. Apri il progetto in Xcode:
+   ```bash
+   npx cap open ios
+   ```
+5. In Xcode:
+   - Seleziona il progetto nel pannello di sinistra → scheda **Signing & Capabilities**.
+   - In **Team**, seleziona il tuo Apple ID personale (per test su un tuo dispositivo, un Apple ID gratuito basta) oppure un **Apple Developer Program** attivo (99 $/anno) se vuoi pubblicare su App Store o distribuire a più persone con TestFlight.
+   - Collega l'iPhone/iPad via cavo, selezionalo come dispositivo di destinazione in alto, e premi ▶ **Run**.
+   - Con un Apple ID gratuito, l'app installata scade dopo 7 giorni e va ricompilata; con un account Developer a pagamento dura fino a un anno o è distribuibile via TestFlight/App Store.
+
+**Se non hai un Mac:** le alternative realistiche sono:
+- Usare un Mac in prestito (anche solo per un pomeriggio, il processo sopra richiede poco tempo).
+- Un servizio di "Mac in cloud" a noleggio (es. MacStadium, MacinCloud).
+- Un servizio di build CI con runner macOS, come **Codemagic** o **Ionic Appflow**, che compilano il progetto Capacitor/iOS nel cloud e restituiscono un file installabile o un link TestFlight, senza bisogno di possedere un Mac.
+- Nel frattempo, **installare ScoutSafe come PWA da Safari** (vedi [capitolo 2](#2-installare-scoutsafe-sul-tuo-dispositivo)) copre già icona home page e uso offline parziale, senza alcuna delle limitazioni sopra.

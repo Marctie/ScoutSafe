@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { SessionService } from '../../../services/session.service';
+import { PdfReportService } from '../../../services/pdf-report.service';
 import { campDetailsStore } from '../setup/setup.page';
 import { lastKnotResults, lastKnotQuery } from '../knots/knots.page';
 import { lastRiskAssessment } from '../risks/risks.page';
@@ -20,6 +21,7 @@ export class ReportPage {
   constructor(
     private auth: AuthService,
     private sessionSvc: SessionService,
+    private pdfSvc: PdfReportService,
     private toast: ToastController,
     private loading: LoadingController
   ) {}
@@ -63,6 +65,22 @@ export class ReportPage {
       t.present();
     } finally {
       await loader.dismiss();
+    }
+  }
+
+  async exportPdf() {
+    if (!this.camp) return;
+    try {
+      this.pdfSvc.generate({
+        camp: this.camp,
+        createdAt: this.today,
+        knotResults: this.knotResults,
+        risks: this.risks,
+        notes: this.notes
+      });
+    } catch {
+      const t = await this.toast.create({ message: 'Errore durante la generazione del PDF', duration: 3000, color: 'danger' });
+      t.present();
     }
   }
 }

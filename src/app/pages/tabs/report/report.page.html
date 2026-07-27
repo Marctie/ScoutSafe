@@ -75,6 +75,11 @@
         {{ saved ? 'Salvato ✓' : 'Salva nello Storico' }}
       </ion-button>
 
+      <ion-button expand="block" fill="outline" (click)="exportPdf()" style="--color:#386641;--border-color:#386641;margin-bottom:8px;">
+        <ion-icon name="document-text-outline" slot="start"></ion-icon>
+        Esporta PDF
+      </ion-button>
+
       <p style="text-align:center;font-size:12px;color:#6c757d;">Generato da ScoutSafe · Stai al sicuro, sii preparato.</p>
     </div>
   </div>

@@ -33,7 +33,11 @@
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": ["leaflet"]
+            "allowedCommonJsDependencies": [
+              "leaflet"
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {

@@ -83,4 +83,45 @@ export class ProfilePage {
     });
     await alert.present();
   }
+
+  exportBackup() {
+    const user = this.auth.currentUser;
+    if (!user) return;
+    const json = this.sessionSvc.exportBackup(user.uid);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `scoutsafe_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  triggerImport(input: HTMLInputElement) {
+    input.click();
+  }
+
+  async onImportFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file) return;
+    const user = this.auth.currentUser;
+    if (!user) return;
+
+    try {
+      const text = await file.text();
+      const count = await this.sessionSvc.importBackup(text, user.uid);
+      await this.load();
+      const t = await this.toast.create({
+        message: count > 0 ? `${count} sessioni importate` : 'Nessuna sessione valida trovata nel file',
+        duration: 2500,
+        color: count > 0 ? 'success' : 'warning'
+      });
+      t.present();
+    } catch {
+      const t = await this.toast.create({ message: 'File non valido: impossibile importare il backup', duration: 3000, color: 'danger' });
+      t.present();
+    }
+  }
 }

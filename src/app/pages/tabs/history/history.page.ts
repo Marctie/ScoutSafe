@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { SessionService } from '../../../services/session.service';
+import { PdfReportService } from '../../../services/pdf-report.service';
 import { ScoutSession } from '../../../models/session.model';
 
 @Component({
@@ -18,6 +19,7 @@ export class HistoryPage implements OnInit {
   constructor(
     private auth: AuthService,
     private sessionSvc: SessionService,
+    private pdfSvc: PdfReportService,
     private alertCtrl: AlertController,
     private toast: ToastController
   ) {}
@@ -69,5 +71,20 @@ export class HistoryPage implements OnInit {
 
   levelLabel(level: string): string {
     return { nessuno: 'Nessuno', basso: 'Basso', medio: 'Medio', alto: 'ALTO' }[level] ?? level;
+  }
+
+  async exportPdf(session: ScoutSession) {
+    try {
+      this.pdfSvc.generate({
+        camp: session.camp,
+        createdAt: session.createdAt,
+        knotResults: session.knotResults,
+        risks: session.risks,
+        notes: session.notes
+      });
+    } catch {
+      const t = await this.toast.create({ message: 'Errore durante la generazione del PDF', duration: 3000, color: 'danger' });
+      t.present();
+    }
   }
 }

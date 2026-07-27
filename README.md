@@ -13,9 +13,10 @@ App web (Ionic + Angular) per pianificare campi scout in sicurezza: posizionamen
 - **Campo** — nome e posizione del campo tramite GPS o coordinate manuali, con mappa OpenStreetMap
 - **Nodi** — raccomandazione dei 3 nodi più adatti tra 15 nodi scout classici, in base a 7 parametri
 - **Rischi** — valutazione di alluvione, vento, temperatura, neve e sismicità con dati Open-Meteo e USGS
-- **Rapporto** — riepilogo stampabile con note, salvabile nello storico
-- **Storico** — sessioni salvate sul dispositivo
-- **Profilo** — area personale con statistiche e gestione dati
+- **Rapporto** — riepilogo con note, esportabile in **PDF** e salvabile nello storico
+- **Storico** — sessioni salvate sul dispositivo, esportabili singolarmente in PDF
+- **Profilo** — area personale con statistiche, **backup/ripristino dati (JSON)** e gestione dati
+- **Installabile e offline** — PWA installabile su Android/iOS/desktop, con cache per l'uso senza connessione
 
 ## Sviluppo
 
@@ -26,3 +27,7 @@ npm run build      # build di produzione
 ```
 
 Il deploy su GitHub Pages avviene automaticamente ad ogni push su `main` tramite GitHub Actions.
+
+## App nativa (Android / iOS)
+
+Il progetto include già la piattaforma **Android** (cartella `android/`, basata su Capacitor) pronta per essere aperta in Android Studio e compilata in APK. Per **iOS** serve un Mac con Xcode (requisito Apple, non aggirabile). La guida completa passo-passo per entrambe le piattaforme, incluso come installare l'app su un telefono, è nel [manuale utente, capitolo 14](docs/MANUALE-UTENTE.md#14-per-sviluppatori-build-android-e-ios).
