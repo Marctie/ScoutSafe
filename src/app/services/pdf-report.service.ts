@@ -78,6 +78,19 @@ export class PdfReportService {
       y += 2;
     }
 
+    if (data.risks?.locationWarning) {
+      ensureSpace(16);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(180, 100, 20);
+      doc.text('Verifica la posizione:', marginX, y);
+      y += 5;
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0, 0, 0);
+      const warnLines = doc.splitTextToSize(data.risks.locationWarning, pageWidth - marginX * 2);
+      doc.text(warnLines, marginX, y);
+      y += warnLines.length * 4.5 + 5;
+    }
+
     if (data.risks) {
       ensureSpace(12);
       this.sectionTitle(doc, 'Valutazione Rischi Ambientali', marginX, y);

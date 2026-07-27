@@ -45,6 +45,13 @@
         </ion-card-content>
       </ion-card>
 
+      <!-- AVVISO POSIZIONE -->
+      <ion-card *ngIf="risks?.locationWarning" color="warning" style="border-radius:12px;">
+        <ion-card-content>
+          <strong>⚠️ Verifica la posizione:</strong> {{risks?.locationWarning}}
+        </ion-card-content>
+      </ion-card>
+
       <!-- RISCHI -->
       <ion-card *ngIf="risks" style="border-radius:12px;">
         <ion-card-header>

@@ -32,8 +32,14 @@
 
     <div *ngIf="assessment">
       <p style="color:#6c757d;font-size:12px;text-align:center;">
-        Dati aggiornati al {{assessment.updatedAt | date:'dd/MM/yyyy HH:mm'}} · Previsione 3 giorni
+        Dati aggiornati al {{assessment.updatedAt | date:'dd/MM/yyyy HH:mm'}} · Previsione 7 giorni
       </p>
+
+      <ion-card *ngIf="assessment.locationWarning" color="warning" style="border-radius:12px;margin-bottom:12px;">
+        <ion-card-content>
+          <strong>⚠️ Verifica la posizione:</strong> {{assessment.locationWarning}}
+        </ion-card-content>
+      </ion-card>
 
       <ion-card *ngFor="let item of riskItems" [class]="levelClass(item.level)" style="border-radius:12px;margin-bottom:12px;">
         <ion-item lines="none" style="--background:transparent;">
@@ -54,7 +60,7 @@
       <ion-card style="border-radius:12px;background:#e8f5e9;">
         <ion-card-content>
           <p style="margin:0;font-size:13px;color:#386641;">
-            <strong>💡 Fonte dati:</strong> Meteo da Open-Meteo (previsione 3 giorni) · Sismi da USGS (ultimi 7 giorni, raggio 150km)
+            <strong>💡 Fonte dati:</strong> Meteo da Open-Meteo (previsione 7 giorni) · Sismi da USGS (ultimi 7 giorni, raggio 150km)
           </p>
         </ion-card-content>
       </ion-card>

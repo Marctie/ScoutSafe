@@ -22,7 +22,8 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)",
+          "/assets/manuale-utente.html"
         ]
       }
     }
@@ -43,7 +44,8 @@
       "name": "environmental-apis",
       "urls": [
         "https://api.open-meteo.com/**",
-        "https://earthquake.usgs.gov/**"
+        "https://earthquake.usgs.gov/**",
+        "https://nominatim.openstreetmap.org/**"
       ],
       "cacheConfig": {
         "strategy": "freshness",

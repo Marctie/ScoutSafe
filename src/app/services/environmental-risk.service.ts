@@ -19,41 +19,98 @@ export interface RiskAssessment {
   temperature: RiskItem;
   snow: RiskItem;
   updatedAt: Date;
+  /** Avviso sulla plausibilita' della posizione (es. mare aperto, zona polare). Assente se la posizione non desta sospetti. */
+  locationWarning?: string;
 }
+
+const ARCTIC_CIRCLE_LAT = 66.5;
 
 @Injectable({ providedIn: 'root' })
 export class EnvironmentalRiskService {
   private http = inject(HttpClient);
 
-
   async assess(lat: number, lng: number): Promise<RiskAssessment> {
-    const [weather, seismic] = await Promise.all([
+    const [weather, seismic, locationWarning] = await Promise.all([
       this.fetchWeather(lat, lng),
-      this.fetchSeismic(lat, lng)
+      this.fetchSeismic(lat, lng),
+      this.checkLocation(lat, lng)
     ]);
-    return { ...weather, seismic, updatedAt: new Date() };
+    return { ...weather, seismic, updatedAt: new Date(), locationWarning };
   }
 
-  private async fetchWeather(lat: number, lng: number): Promise<Omit<RiskAssessment, 'seismic' | 'updatedAt'>> {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=precipitation_sum,windspeed_10m_max,snowfall_sum,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto`;
+  /**
+   * Verifica se la posizione e' plausibile per un campo scout (terraferma abitabile,
+   * non in area polare estrema). Non blocca l'analisi: aggiunge solo un avviso.
+   */
+  private async checkLocation(lat: number, lng: number): Promise<string | undefined> {
+    const warnings: string[] = [];
+
+    if (Math.abs(lat) >= ARCTIC_CIRCLE_LAT) {
+      warnings.push(
+        "Questa posizione e' oltre il circolo polare: condizioni climatiche estreme (freddo intenso, ghiacci permanenti, luce/buio prolungati) non sono sempre catturate dalla sola previsione meteo a breve termine."
+      );
+    }
+
+    try {
+      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10`;
+      const data: any = await firstValueFrom(this.http.get(url));
+      if (!data || data.error || !data.address) {
+        warnings.push(
+          "Le coordinate indicate non risultano su terraferma abitata (potrebbe essere mare aperto, un ghiacciaio o una zona remota disabitata): ricontrolla la posizione inserita nella scheda Campo prima di fidarti dell'analisi rischi."
+        );
+      }
+    } catch {
+      // Servizio di geocodifica non raggiungibile: non blocchiamo l'analisi dei rischi per questo.
+    }
+
+    return warnings.length > 0 ? warnings.join(' ') : undefined;
+  }
+
+  /** Massimo tra i valori numerici validi dell'array, ignorando null/undefined/NaN. */
+  private maxOf(values: (number | null | undefined)[] | undefined, fallback: number): number {
+    const valid = (values ?? []).filter((v): v is number => typeof v === 'number' && !Number.isNaN(v));
+    return valid.length > 0 ? Math.max(...valid) : fallback;
+  }
+
+  /** Minimo tra i valori numerici validi dell'array, ignorando null/undefined/NaN. */
+  private minOf(values: (number | null | undefined)[] | undefined, fallback: number): number {
+    const valid = (values ?? []).filter((v): v is number => typeof v === 'number' && !Number.isNaN(v));
+    return valid.length > 0 ? Math.min(...valid) : fallback;
+  }
+
+  /** Somma dei valori numerici validi dell'array, ignorando null/undefined/NaN. */
+  private sumOf(values: (number | null | undefined)[] | undefined): number {
+    const valid = (values ?? []).filter((v): v is number => typeof v === 'number' && !Number.isNaN(v));
+    return valid.reduce((acc, v) => acc + v, 0);
+  }
+
+  private async fetchWeather(lat: number, lng: number): Promise<Omit<RiskAssessment, 'seismic' | 'updatedAt' | 'locationWarning'>> {
+    // Previsione a 7 giorni: copre la durata tipica di un campo e allinea soglie/affidabilita' dichiarate nel manuale.
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=precipitation_sum,windspeed_10m_max,snowfall_sum,temperature_2m_max,temperature_2m_min&forecast_days=7&timezone=auto`;
     try {
       const data: any = await firstValueFrom(this.http.get(url));
-      const precip = Math.max(...(data.daily?.precipitation_sum ?? [0]));
-      const wind = Math.max(...(data.daily?.windspeed_10m_max ?? [0]));
-      const snow = Math.max(...(data.daily?.snowfall_sum ?? [0]));
-      const minTemp = Math.min(...(data.daily?.temperature_2m_min ?? [20]));
+      const daily = data?.daily;
+      if (!daily) throw new Error('Risposta senza dati giornalieri');
+
+      const precipMax = this.maxOf(daily.precipitation_sum, 0);
+      const precipTotal = this.sumOf(daily.precipitation_sum);
+      const windMax = this.maxOf(daily.windspeed_10m_max, 0);
+      const snowMax = this.maxOf(daily.snowfall_sum, 0);
+      const snowTotal = this.sumOf(daily.snowfall_sum);
+      const minTemp = this.minOf(daily.temperature_2m_min, 20);
+
       return {
-        flood: this.floodRisk(precip),
-        wind: this.windRisk(wind),
-        snow: this.snowRisk(snow),
+        flood: this.floodRisk(precipMax, precipTotal),
+        wind: this.windRisk(windMax),
+        snow: this.snowRisk(snowMax, snowTotal),
         temperature: this.tempRisk(minTemp)
       };
     } catch {
       return {
-        flood: { name: 'Rischio Alluvione', icon: '🌊', level: 'nessuno', description: 'Dati non disponibili' },
-        wind: { name: 'Pericolo Vento', icon: '💨', level: 'nessuno', description: 'Dati non disponibili' },
-        snow: { name: 'Neve/Ghiaccio', icon: '❄️', level: 'nessuno', description: 'Dati non disponibili' },
-        temperature: { name: 'Temperatura', icon: '🌡️', level: 'nessuno', description: 'Dati non disponibili' }
+        flood: { name: 'Rischio Alluvione', icon: '🌊', level: 'nessuno', description: 'Dati non disponibili: impossibile valutare questo rischio per la posizione indicata.' },
+        wind: { name: 'Pericolo Vento', icon: '💨', level: 'nessuno', description: 'Dati non disponibili: impossibile valutare questo rischio per la posizione indicata.' },
+        snow: { name: 'Neve/Ghiaccio', icon: '❄️', level: 'nessuno', description: 'Dati non disponibili: impossibile valutare questo rischio per la posizione indicata.' },
+        temperature: { name: 'Temperatura', icon: '🌡️', level: 'nessuno', description: 'Dati non disponibili: impossibile valutare questo rischio per la posizione indicata.' }
       };
     }
   }
@@ -75,12 +132,12 @@ export class EnvironmentalRiskService {
     }
   }
 
-  private floodRisk(precip: number): RiskItem {
-    const base = { name: 'Rischio Alluvione', icon: '🌊', value: `${precip.toFixed(1)} mm/giorno` };
-    if (precip > 20) return { ...base, level: 'alto', description: `Precipitazioni intense previste (${precip.toFixed(1)}mm). Evitare zone basse e vicino a corsi d'acqua.` };
-    if (precip > 5) return { ...base, level: 'medio', description: `Piogge moderate previste (${precip.toFixed(1)}mm). Monitorare canali e torrenti.` };
-    if (precip > 0) return { ...base, level: 'basso', description: `Piogge leggere (${precip.toFixed(1)}mm). Condizioni generalmente sicure.` };
-    return { ...base, level: 'nessuno', description: 'Nessuna precipitazione significativa prevista.' };
+  private floodRisk(maxDaily: number, total: number): RiskItem {
+    const base = { name: 'Rischio Alluvione', icon: '🌊', value: `${maxDaily.toFixed(1)} mm/giorno · tot. 7gg ${total.toFixed(0)} mm` };
+    if (maxDaily > 20 || total > 60) return { ...base, level: 'alto', description: `Precipitazioni intense previste (picco ${maxDaily.toFixed(1)}mm/giorno, totale settimanale ${total.toFixed(0)}mm). Evitare zone basse e vicino a corsi d'acqua.` };
+    if (maxDaily > 5 || total > 25) return { ...base, level: 'medio', description: `Piogge moderate previste (picco ${maxDaily.toFixed(1)}mm/giorno, totale settimanale ${total.toFixed(0)}mm). Monitorare canali e torrenti.` };
+    if (maxDaily > 0 || total > 0) return { ...base, level: 'basso', description: `Piogge leggere (totale settimanale ${total.toFixed(0)}mm). Condizioni generalmente sicure.` };
+    return { ...base, level: 'nessuno', description: 'Nessuna precipitazione significativa prevista nei prossimi 7 giorni.' };
   }
 
   private windRisk(wind: number): RiskItem {
@@ -90,11 +147,11 @@ export class EnvironmentalRiskService {
     return { ...base, level: 'basso', description: `Vento leggero (${wind.toFixed(0)} km/h). Condizioni ideali per il campeggio.` };
   }
 
-  private snowRisk(snow: number): RiskItem {
-    const base = { name: 'Neve / Ghiaccio', icon: '❄️', value: `${snow.toFixed(1)} cm` };
-    if (snow > 10) return { ...base, level: 'alto', description: `Nevicate abbondanti previste (${snow.toFixed(1)}cm). Preparare attrezzatura invernale.` };
-    if (snow > 1) return { ...base, level: 'medio', description: `Possibili nevicate (${snow.toFixed(1)}cm). Attenzione al ghiaccio.` };
-    return { ...base, level: 'nessuno', description: 'Nessuna neve prevista.' };
+  private snowRisk(maxDaily: number, total: number): RiskItem {
+    const base = { name: 'Neve / Ghiaccio', icon: '❄️', value: `${maxDaily.toFixed(1)} cm/giorno · tot. 7gg ${total.toFixed(0)} cm` };
+    if (maxDaily > 10 || total > 25) return { ...base, level: 'alto', description: `Nevicate abbondanti previste (picco ${maxDaily.toFixed(1)}cm/giorno, totale settimanale ${total.toFixed(0)}cm). Preparare attrezzatura invernale.` };
+    if (maxDaily > 1 || total > 3) return { ...base, level: 'medio', description: `Possibili nevicate (totale settimanale ${total.toFixed(0)}cm). Attenzione al ghiaccio.` };
+    return { ...base, level: 'nessuno', description: 'Nessuna nevicata significativa prevista nei prossimi 7 giorni.' };
   }
 
   private tempRisk(minTemp: number): RiskItem {

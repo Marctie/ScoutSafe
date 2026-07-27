@@ -172,13 +172,15 @@ Il cuore di ScoutSafe: un'analisi dei rischi del luogo del campo basata su **dat
 
 | Rischio | Fonte dati | Soglie |
 |---|---|---|
-| 🌊 **Alluvione** | Previsioni di precipitazione a 7 giorni (Open-Meteo) | Basso < 5 mm/giorno · Medio 5–20 · Alto > 20 |
+| 🌊 **Alluvione** | Precipitazioni previste a 7 giorni (Open-Meteo) | Basso: tracce · Medio: picco giornaliero > 5mm **o** totale settimanale > 25mm · Alto: picco > 20mm **o** totale > 60mm |
 | 💨 **Vento** | Raffiche massime previste a 7 giorni (Open-Meteo) | Basso < 30 km/h · Medio 30–60 · Alto > 60 |
-| 🌡️ **Temperatura** | Previsioni orarie (Open-Meteo) | Sicuro > 10 °C · Attenzione 0–10 · Pericolo < 0 |
-| ❄️ **Neve/Ghiaccio** | Nevicate previste (Open-Meteo) | Sicuro 0 mm · Attenzione 1–10 · Pericolo > 10 |
+| 🌡️ **Temperatura** | Previsioni orarie a 7 giorni (Open-Meteo) | Sicuro > 10 °C · Attenzione 0–10 · Pericolo < 0 |
+| ❄️ **Neve/Ghiaccio** | Nevicate previste a 7 giorni (Open-Meteo) | Basso: tracce · Medio: picco giornaliero > 1cm **o** totale settimanale > 3cm · Alto: picco > 10cm **o** totale > 25cm |
 | 🌍 **Sismico** | Terremoti reali degli ultimi 7 giorni entro 100 km (USGS) | Da "nessuno" ad "alto" in base a numero e magnitudo |
 
-Ogni rischio è mostrato come una scheda colorata con il livello (**nessuno / basso / medio / ALTO**), il valore misurato e una descrizione di cosa significa in pratica per il campo.
+Ogni rischio è mostrato come una scheda colorata con il livello (**nessuno / basso / medio / ALTO**), il valore misurato (sia il picco giornaliero che il totale sulla settimana) e una descrizione di cosa significa in pratica per il campo. Valutare anche il totale cumulato, oltre al singolo picco giornaliero, evita di sottostimare il rischio in casi di piogge o nevicate moderate ma continue per più giorni.
+
+> ⚠️ **Verifica della posizione**: se le coordinate inserite non risultano su terraferma riconoscibile (es. mare aperto, ghiacciai) o sono oltre il circolo polare artico/antartico, compare un avviso dedicato prima delle schede di rischio: in questi casi i dati meteo esistono comunque (i modelli meteo coprono l'intero pianeta) ma vanno interpretati con più cautela, perché si tratta di condizioni fuori dall'uso previsto dell'app.
 
 ```mermaid
 flowchart TD
@@ -243,7 +245,7 @@ La tua area personale raccoglie account, statistiche e gestione dei dati.
   - **Esporta backup (JSON)** — scarica un file `.json` con tutte le tue sessioni salvate. Usalo per fare una copia di sicurezza prima di cancellare i dati del browser, o per trasferire lo storico su un altro dispositivo.
   - **Importa backup (JSON)** — carica un file esportato in precedenza: le sessioni contenute vengono aggiunte al tuo storico attuale (non sovrascrive quelle già presenti). Utile dopo aver cambiato dispositivo o reinstallato il browser.
   - **Svuota storico** — elimina in un colpo solo tutte le sessioni salvate su questo dispositivo (con richiesta di conferma; l'operazione non è reversibile — se non sei sicuro, esporta prima un backup).
-- **Informazioni** — versione dell'app e collegamento al progetto.
+- **Informazioni** — versione dell'app e collegamento a questo manuale utente.
 - **Esci** — chiude la sessione e torna alla schermata di accesso.
 
 > 💡 **Consiglio**: il file di backup contiene solo i dati del campo, dei nodi e dei rischi che hai salvato — nessun dato personale sensibile. Puoi conservarlo tranquillamente su un cloud (Google Drive, email a te stesso, ecc.).

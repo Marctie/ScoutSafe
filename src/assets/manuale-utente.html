@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScoutSafe - Manuale Utente</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #faf7ed;
+    color: #2b2b2b;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 64px; }
+  h1 { color: #386641; font-size: 26px; border-bottom: 3px solid #386641; padding-bottom: 12px; }
+  h2 { color: #386641; font-size: 21px; margin-top: 40px; border-left: 4px solid #386641; padding-left: 12px; }
+  h3 { color: #2c4f32; font-size: 17px; margin-top: 24px; }
+  a { color: #bc6c25; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+  th, td { border: 1px solid #d8d2c0; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #386641; color: #fff; }
+  tr:nth-child(even) { background: #f2efe2; }
+  blockquote {
+    background: #eef3ea;
+    border-left: 4px solid #386641;
+    margin: 16px 0;
+    padding: 10px 16px;
+    border-radius: 0 8px 8px 0;
+  }
+  code { background: #eee; padding: 2px 5px; border-radius: 4px; font-size: 13px; }
+  pre { background: #2b2b2b; color: #f2efe2; padding: 14px; border-radius: 8px; overflow-x: auto; }
+  pre code { background: none; color: inherit; padding: 0; }
+  hr { border: none; border-top: 1px solid #d8d2c0; margin: 32px 0; }
+  ul, ol { padding-left: 22px; }
+  .top-badge { text-align: center; margin-bottom: 24px; }
+  .top-badge .emoji { font-size: 42px; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1c231d; color: #e8e6dd; }
+    h1, h2 { color: #7fb787; }
+    h3 { color: #9fcf9f; }
+    th { background: #2c4f32; }
+    tr:nth-child(even) { background: #232b23; }
+    blockquote { background: #26301f; }
+    td, th { border-color: #3a4436; }
+    hr { border-top-color: #3a4436; }
+    code { background: #2e352c; color: #e8e6dd; }
+    a { color: #e0a35e; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top-badge"><span class="emoji">⛺</span></div>
+<h1>ScoutSafe — Manuale Utente</h1>
+<p><strong>La sicurezza del tuo campo scout, in una sola app.</strong></p>
+<p>ScoutSafe ti accompagna in tutte le fasi dell&#39;allestimento di un campo: dalla scelta del luogo, alla selezione dei nodi giusti, fino alla valutazione dei rischi ambientali basata su dati meteo e sismici reali. Al termine puoi generare un rapporto di sicurezza completo e conservarlo nello storico.</p>
+<p>L&#39;app funziona da browser, su computer, tablet e smartphone, all&#39;indirizzo:</p>
+<p><strong><a href="https://marctie.github.io/ScoutSafe/">https://marctie.github.io/ScoutSafe/</a></strong></p>
+<hr>
+<h2>Indice</h2>
+<ol>
+<li><a href="#1-primi-passi-laccesso">Primi passi: l&#39;accesso</a></li>
+<li><a href="#2-installare-scoutsafe-sul-tuo-dispositivo">Installare ScoutSafe sul tuo dispositivo</a></li>
+<li><a href="#3-la-struttura-dellapp">La struttura dell&#39;app</a></li>
+<li><a href="#4-scheda-campo-configurare-il-campo">Scheda &quot;Campo&quot;: configurare il campo</a></li>
+<li><a href="#5-scheda-nodi-il-consigliere-di-nodi">Scheda &quot;Nodi&quot;: il consigliere di nodi</a></li>
+<li><a href="#6-scheda-rischi-la-valutazione-ambientale">Scheda &quot;Rischi&quot;: la valutazione ambientale</a></li>
+<li><a href="#7-scheda-rapporto-il-rapporto-di-sicurezza">Scheda &quot;Rapporto&quot;: il rapporto di sicurezza</a></li>
+<li><a href="#8-scheda-storico-le-sessioni-salvate">Scheda &quot;Storico&quot;: le sessioni salvate</a></li>
+<li><a href="#9-scheda-profilo-larea-personale">Scheda &quot;Profilo&quot;: l&#39;area personale</a></li>
+<li><a href="#10-modalit%C3%A0-offline">Modalità offline</a></li>
+<li><a href="#11-affidabilit%C3%A0-delle-funzioni">Affidabilità delle funzioni</a></li>
+<li><a href="#12-domande-frequenti">Domande frequenti</a></li>
+<li><a href="#13-avvertenze-importanti">Avvertenze importanti</a></li>
+<li><a href="#14-per-sviluppatori-build-android-e-ios">Per sviluppatori: build Android e iOS</a></li>
+</ol>
+<hr>
+<h2>1. Primi passi: l&#39;accesso</h2>
+<p>All&#39;apertura dell&#39;app compare la schermata di accesso. Inserisci l&#39;email e la password che ti sono state fornite e premi <strong>Accedi</strong>.</p>
+<ul>
+<li>L&#39;accesso viene ricordato sul dispositivo: alla prossima apertura entrerai direttamente, senza reinserire le credenziali.</li>
+<li>Per uscire, usa il pulsante <strong>Esci</strong> nella scheda <strong>Profilo</strong>.</li>
+</ul>
+<p>Se compare &quot;Password errata&quot;, controlla maiuscole/minuscole e caratteri speciali: la password li distingue.</p>
+<blockquote>
+<p><strong>Apri l&#39;app</strong> → già connesso? → <strong>Sì</strong>: vai alla scheda Campo · <strong>No</strong>: schermata di accesso → credenziali corrette → scheda Campo (se errate, richiede di nuovo l&#39;accesso)</p>
+</blockquote>
+<hr>
+<h2>2. Installare ScoutSafe sul tuo dispositivo</h2>
+<p>ScoutSafe è prima di tutto un&#39;app web: funziona subito da browser, senza installazione, all&#39;indirizzo indicato in cima a questo manuale. Ma puoi anche &quot;installarla&quot; per averla come una app vera e propria, con icona sulla schermata home e funzionamento offline parziale. Ci sono tre modi, in ordine di semplicità.</p>
+<h3>2.1 Come PWA (consigliato, funziona su Android, iPhone/iPad e computer)</h3>
+<p>ScoutSafe è una <strong>Progressive Web App</strong>: si installa direttamente dal browser, senza store, in pochi secondi.</p>
+<p><strong>Su Android (Chrome):</strong></p>
+<ol>
+<li>Apri l&#39;app dal link nel browser.</li>
+<li>Tocca il menu (⋮) in alto a destra.</li>
+<li>Seleziona <strong>&quot;Installa app&quot;</strong> o <strong>&quot;Aggiungi a schermata Home&quot;</strong>.</li>
+<li>Conferma: l&#39;icona di ScoutSafe comparirà tra le tue app.</li>
+</ol>
+<p><strong>Su iPhone/iPad (Safari):</strong></p>
+<ol>
+<li>Apri l&#39;app dal link in Safari (l&#39;installazione PWA su iOS funziona solo da Safari, non da Chrome).</li>
+<li>Tocca l&#39;icona di condivisione (il quadrato con la freccia verso l&#39;alto).</li>
+<li>Scorri e seleziona <strong>&quot;Aggiungi alla schermata Home&quot;</strong>.</li>
+<li>Conferma il nome e tocca <strong>&quot;Aggiungi&quot;</strong>.</li>
+</ol>
+<p><strong>Su computer (Chrome, Edge):</strong></p>
+<ol>
+<li>Apri l&#39;app nel browser.</li>
+<li>Cerca l&#39;icona di installazione nella barra degli indirizzi (di solito un&#39;iconcina con un &quot;+&quot; o un monitor), oppure apri il menu del browser.</li>
+<li>Seleziona <strong>&quot;Installa ScoutSafe&quot;</strong>.</li>
+</ol>
+<p>Una volta installata, l&#39;app si apre a schermo intero, ha una sua icona dedicata e conserva in cache le pagine già visitate per l&#39;uso offline (vedi <a href="#10-modalit%C3%A0-offline">capitolo 10</a>).</p>
+<h3>2.2 Come app Android nativa (file APK)</h3>
+<p>Se preferisci un vero file installabile (<code>.apk</code>) invece della PWA, puoi generarlo tu stesso a partire dal codice sorgente. Questo richiede un minimo di dimestichezza tecnica: la guida completa passo-passo è nel <a href="#14-per-sviluppatori-build-android-e-ios">capitolo 14</a>.</p>
+<p>In sintesi: il progetto include già la piattaforma Android (cartella <code>android/</code>), pronta per essere aperta in <strong>Android Studio</strong> e compilata in un APK da installare su qualunque telefono Android, oppure da pubblicare sul Play Store.</p>
+<h3>2.3 Come app iOS nativa</h3>
+<p>Apple richiede obbligatoriamente un <strong>computer Mac con Xcode</strong> per compilare, firmare e installare un&#39;app iOS nativa: non è possibile farlo da Windows o Linux, nemmeno con Capacitor. Se non hai un Mac, la strada più semplice e già disponibile oggi è <strong>installare ScoutSafe come PWA da Safari</strong> (sezione 2.1): copre la stragrande maggioranza delle funzionalità, incluse icona sulla home e uso offline.</p>
+<p>Se in futuro avrai accesso a un Mac, la guida completa per generare e installare la versione iOS nativa è nel <a href="#14-per-sviluppatori-build-android-e-ios">capitolo 14</a>.</p>
+<hr>
+<h2>3. La struttura dell&#39;app</h2>
+<p>In basso trovi sei schede, pensate per essere usate in sequenza durante l&#39;allestimento del campo:</p>
+<table>
+<thead>
+<tr>
+<th>Scheda</th>
+<th>Icona</th>
+<th>A cosa serve</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Campo</strong></td>
+<td>🗺️</td>
+<td>Dai un nome al campo e fissane la posizione (GPS o manuale)</td>
+</tr>
+<tr>
+<td><strong>Nodi</strong></td>
+<td>🪢</td>
+<td>Ricevi i 3 nodi più adatti alla tua situazione</td>
+</tr>
+<tr>
+<td><strong>Rischi</strong></td>
+<td>⚠️</td>
+<td>Valutazione dei rischi ambientali sulla posizione del campo</td>
+</tr>
+<tr>
+<td><strong>Rapporto</strong></td>
+<td>📄</td>
+<td>Riepilogo completo, con note, da salvare o stampare</td>
+</tr>
+<tr>
+<td><strong>Storico</strong></td>
+<td>🕒</td>
+<td>Tutte le sessioni salvate in passato</td>
+</tr>
+<tr>
+<td><strong>Profilo</strong></td>
+<td>👤</td>
+<td>Area personale: statistiche, gestione dati, uscita</td>
+</tr>
+</tbody></table>
+<p>Il flusso di lavoro tipico:</p>
+<blockquote>
+<p><strong>1. Campo</strong> (posizione) → <strong>2. Nodi</strong> (raccomandazioni) → <strong>3. Rischi</strong> (analisi ambientale) → <strong>4. Rapporto</strong> (salva nello storico) → <strong>5. Storico</strong> (consulta quando vuoi)</p>
+</blockquote>
+<hr>
+<h2>4. Scheda &quot;Campo&quot;: configurare il campo</h2>
+<p>È il punto di partenza di ogni sessione.</p>
+<p><strong>Cosa fare, in ordine:</strong></p>
+<ol>
+<li><strong>Nome del campo</strong> — scrivi un nome riconoscibile (es. &quot;Campo estivo Val Codera 2026&quot;).</li>
+<li><strong>Posizione</strong> — hai due possibilità:<ul>
+<li><strong>Usa GPS</strong>: premi il pulsante e concedi al browser il permesso di geolocalizzazione. Le coordinate vengono rilevate automaticamente.</li>
+<li><strong>Inserimento manuale</strong>: digita latitudine e longitudine (le trovi ad esempio in Google Maps con un clic destro sul punto).</li>
+</ul>
+</li>
+<li><strong>Verifica sulla mappa</strong> — la mappa (OpenStreetMap) mostra un segnaposto sulla posizione scelta: controlla che sia davvero il punto del tuo campo.</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Consiglio</strong>: se sei già sul posto, il GPS è la via più rapida e precisa. Se stai pianificando da casa, usa l&#39;inserimento manuale con le coordinate del luogo previsto.</p>
+</blockquote>
+<p>La posizione impostata qui viene usata dalla scheda <strong>Rischi</strong> per interrogare i servizi meteo e sismici: senza posizione, l&#39;analisi dei rischi non può partire.</p>
+<hr>
+<h2>5. Scheda &quot;Nodi&quot;: il consigliere di nodi</h2>
+<p>Rispondi a poche domande e ricevi i <strong>3 nodi più adatti</strong> alla tua situazione, ordinati per punteggio di idoneità, con descrizione, istruzioni passo-passo e avvertenze.</p>
+<p><strong>I parametri richiesti:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parametro</th>
+<th>Opzioni</th>
+<th>Perché conta</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Scopo d&#39;uso</td>
+<td>ancoraggio, giunzione, asola, avvolgimento, legatura, arrampicata</td>
+<td>Ogni nodo nasce per un compito preciso</td>
+</tr>
+<tr>
+<td>Condizione corda</td>
+<td>asciutta, bagnata</td>
+<td>Alcuni nodi scivolano o si bloccano da bagnati</td>
+</tr>
+<tr>
+<td>Tipo di corda</td>
+<td>naturale, sintetica, mista</td>
+<td>La tenuta cambia con il materiale</td>
+</tr>
+<tr>
+<td>Tipo di carico</td>
+<td>statico, dinamico, pesante</td>
+<td>Un nodo per carichi statici può cedere sotto strappi</td>
+</tr>
+<tr>
+<td>Esperienza</td>
+<td>principiante, intermedio, esperto</td>
+<td>Nodi complessi mal eseguiti sono pericolosi</td>
+</tr>
+<tr>
+<td>Impiego</td>
+<td>tenda, alzabandiera, ponte, attrezzi, soccorso, generico</td>
+<td>Contestualizza la raccomandazione</td>
+</tr>
+<tr>
+<td>Vento</td>
+<td>assente, leggero, medio, forte</td>
+<td>Col vento forte servono nodi che non si allentano</td>
+</tr>
+</tbody></table>
+<p><strong>Come funziona:</strong> l&#39;app confronta le tue risposte con una banca dati di <strong>15 nodi scout classici</strong> (Gassa d&#39;Amante, Nodo Piano, Barcaiolo, Savoia, Prussik, Scotta e altri), ciascuno descritto con i suoi punti di forza e i suoi limiti. Un algoritmo a punteggio premia i nodi adatti al tuo scenario e penalizza quelli controindicati (ad esempio il Nodo Piano su corda bagnata). Il risultato è sempre coerente e ripetibile: a parità di risposte, stessi consigli.</p>
+<blockquote>
+<p><strong>Compila i 7 parametri</strong> → calcolo punteggio su 15 nodi → classifica → <strong>Top 3 nodi</strong> con descrizione, istruzioni e avvertenze</p>
+</blockquote>
+<blockquote>
+<p>⚠️ Leggi sempre le <strong>avvertenze</strong> riportate sotto ogni nodo: segnalano i casi in cui quel nodo NON va usato.</p>
+</blockquote>
+<hr>
+<h2>6. Scheda &quot;Rischi&quot;: la valutazione ambientale</h2>
+<p>Il cuore di ScoutSafe: un&#39;analisi dei rischi del luogo del campo basata su <strong>dati reali e aggiornati</strong>, non su stime generiche.</p>
+<p><strong>Prerequisito:</strong> aver impostato la posizione nella scheda <strong>Campo</strong>.</p>
+<p><strong>Le cinque valutazioni:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Rischio</th>
+<th>Fonte dati</th>
+<th>Soglie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🌊 <strong>Alluvione</strong></td>
+<td>Precipitazioni previste a 7 giorni (Open-Meteo)</td>
+<td>Basso: tracce · Medio: picco giornaliero &gt; 5mm <strong>o</strong> totale settimanale &gt; 25mm · Alto: picco &gt; 20mm <strong>o</strong> totale &gt; 60mm</td>
+</tr>
+<tr>
+<td>💨 <strong>Vento</strong></td>
+<td>Raffiche massime previste a 7 giorni (Open-Meteo)</td>
+<td>Basso &lt; 30 km/h · Medio 30–60 · Alto &gt; 60</td>
+</tr>
+<tr>
+<td>🌡️ <strong>Temperatura</strong></td>
+<td>Previsioni orarie a 7 giorni (Open-Meteo)</td>
+<td>Sicuro &gt; 10 °C · Attenzione 0–10 · Pericolo &lt; 0</td>
+</tr>
+<tr>
+<td>❄️ <strong>Neve/Ghiaccio</strong></td>
+<td>Nevicate previste a 7 giorni (Open-Meteo)</td>
+<td>Basso: tracce · Medio: picco giornaliero &gt; 1cm <strong>o</strong> totale settimanale &gt; 3cm · Alto: picco &gt; 10cm <strong>o</strong> totale &gt; 25cm</td>
+</tr>
+<tr>
+<td>🌍 <strong>Sismico</strong></td>
+<td>Terremoti reali degli ultimi 7 giorni entro 100 km (USGS)</td>
+<td>Da &quot;nessuno&quot; ad &quot;alto&quot; in base a numero e magnitudo</td>
+</tr>
+</tbody></table>
+<p>Ogni rischio è mostrato come una scheda colorata con il livello (<strong>nessuno / basso / medio / ALTO</strong>), il valore misurato (sia il picco giornaliero che il totale sulla settimana) e una descrizione di cosa significa in pratica per il campo. Valutare anche il totale cumulato, oltre al singolo picco giornaliero, evita di sottostimare il rischio in casi di piogge o nevicate moderate ma continue per più giorni.</p>
+<blockquote>
+<p>⚠️ <strong>Verifica della posizione</strong>: se le coordinate inserite non risultano su terraferma riconoscibile (es. mare aperto, ghiacciai) o sono oltre il circolo polare artico/antartico, compare un avviso dedicato prima delle schede di rischio: in questi casi i dati meteo esistono comunque (i modelli meteo coprono l&#39;intero pianeta) ma vanno interpretati con più cautela, perché si tratta di condizioni fuori dall&#39;uso previsto dell&#39;app.</p>
+</blockquote>
+<blockquote>
+<p><strong>Posizione del campo</strong> → interrogazione <strong>Open-Meteo</strong> (previsioni 7 giorni) e <strong>USGS</strong> (sismi ultimi 7 giorni) → analisi soglie → <strong>5 schede di rischio</strong> con livello e descrizione</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>Consiglio</strong>: rilancia l&#39;analisi ogni giorno durante il campo. Le previsioni meteo cambiano, e l&#39;analisi fotografa la situazione al momento in cui la esegui.</p>
+</blockquote>
+<hr>
+<h2>7. Scheda &quot;Rapporto&quot;: il rapporto di sicurezza</h2>
+<p>Raccoglie in un unico documento tutto il lavoro fatto:</p>
+<ul>
+<li>i dati del campo (nome, coordinate);</li>
+<li>i nodi consigliati con i parametri usati per ottenerli;</li>
+<li>la valutazione completa dei cinque rischi;</li>
+<li>le tue <strong>note libere</strong> (es. &quot;torrente a 200 m, prevedere piano di evacuazione&quot;).</li>
+</ul>
+<p><strong>Per salvare:</strong> aggiungi le eventuali note e premi <strong>Salva</strong>. La sessione finisce nello <strong>Storico</strong> e nelle statistiche del <strong>Profilo</strong>.</p>
+<p><strong>Per esportare in PDF:</strong> premi <strong>Esporta PDF</strong>. Viene generato e scaricato subito un file PDF con il nome del campo, la posizione, i nodi consigliati, la valutazione dei rischi e le tue note: pronto da condividere via email, WhatsApp o da stampare, anche senza passare dalla funzione di stampa del browser.</p>
+<p>Il rapporto è pensato anche per essere mostrato o stampato (dalla funzione di stampa del browser) come documento di riferimento per i capi campo.</p>
+<blockquote>
+<p>Il pulsante Salva è attivo solo se hai almeno configurato il campo e ottenuto nodi o rischi: un rapporto vuoto non è salvabile. Il pulsante Esporta PDF invece funziona anche senza salvare prima, e può essere usato più volte.</p>
+</blockquote>
+<hr>
+<h2>8. Scheda &quot;Storico&quot;: le sessioni salvate</h2>
+<p>Qui trovi tutte le sessioni salvate, ordinate dalla più recente.</p>
+<ul>
+<li><strong>Tocca una sessione</strong> per espanderla e rivedere tutti i dettagli (campo, nodi, rischi, note).</li>
+<li><strong>Esporta PDF</strong> dalla sessione espansa: rigenera in qualsiasi momento il rapporto PDF di una sessione passata, anche mesi dopo.</li>
+<li><strong>Elimina</strong> una sessione con il pulsante dedicato (ti viene chiesta conferma).</li>
+</ul>
+<p><strong>Dove sono i dati?</strong> Le sessioni sono salvate <strong>sul dispositivo che stai usando</strong> (nella memoria del browser). Questo significa:</p>
+<ul>
+<li>funzionano anche senza connessione, una volta caricata l&#39;app;</li>
+<li>non sono visibili da altri dispositivi: lo storico del telefono e quello del computer sono separati;</li>
+<li>se cancelli i dati di navigazione del browser, lo storico viene perso.</li>
+</ul>
+<hr>
+<h2>9. Scheda &quot;Profilo&quot;: l&#39;area personale</h2>
+<p>La tua area personale raccoglie account, statistiche e gestione dei dati.</p>
+<p><strong>Cosa contiene:</strong></p>
+<ul>
+<li><strong>Il mio account</strong> — l&#39;email con cui sei connesso.</li>
+<li><strong>Le mie statistiche</strong> —<ul>
+<li>numero totale di sessioni salvate;</li>
+<li>numero di campi in cui è stato rilevato almeno un rischio <strong>alto</strong>;</li>
+<li>data e nome dell&#39;ultima sessione salvata.</li>
+</ul>
+</li>
+<li><strong>Gestione dati</strong>:<ul>
+<li><strong>Esporta backup (JSON)</strong> — scarica un file <code>.json</code> con tutte le tue sessioni salvate. Usalo per fare una copia di sicurezza prima di cancellare i dati del browser, o per trasferire lo storico su un altro dispositivo.</li>
+<li><strong>Importa backup (JSON)</strong> — carica un file esportato in precedenza: le sessioni contenute vengono aggiunte al tuo storico attuale (non sovrascrive quelle già presenti). Utile dopo aver cambiato dispositivo o reinstallato il browser.</li>
+<li><strong>Svuota storico</strong> — elimina in un colpo solo tutte le sessioni salvate su questo dispositivo (con richiesta di conferma; l&#39;operazione non è reversibile — se non sei sicuro, esporta prima un backup).</li>
+</ul>
+</li>
+<li><strong>Informazioni</strong> — versione dell&#39;app e collegamento a questo manuale utente.</li>
+<li><strong>Esci</strong> — chiude la sessione e torna alla schermata di accesso.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Consiglio</strong>: il file di backup contiene solo i dati del campo, dei nodi e dei rischi che hai salvato — nessun dato personale sensibile. Puoi conservarlo tranquillamente su un cloud (Google Drive, email a te stesso, ecc.).</p>
+</blockquote>
+<hr>
+<h2>10. Modalità offline</h2>
+<p>Da quando ScoutSafe è installabile come PWA (vedi <a href="#2-installare-scoutsafe-sul-tuo-dispositivo">capitolo 2</a>), l&#39;app salva automaticamente in cache le pagine, gli stili e gli script già visitati. Questo significa che:</p>
+<ul>
+<li><strong>Dopo il primo caricamento</strong>, puoi riaprire ScoutSafe anche senza connessione: l&#39;app si avvia comunque e puoi consultare nodi già visualizzati e lo storico salvato.</li>
+<li><strong>La mappa</strong> mostra le tessere (i riquadri della cartina) già caricate in precedenza nella stessa zona; zone mai visitate prima richiedono connessione per scaricare le tessere.</li>
+<li><strong>I dati di rischio</strong> (meteo e sismici) vengono sempre richiesti aggiornati quando c&#39;è connessione. Se per un breve periodo la connessione cade, l&#39;app può mostrare l&#39;ultimo dato ottenuto (fino a poche ore prima) invece di un errore; quando la connessione torna, i dati si aggiornano di nuovo in automatico alla prossima apertura della scheda Rischi.</li>
+<li><strong>Lo storico e le sessioni salvate</strong> funzionano sempre offline: sono salvati sul dispositivo, non dipendono da internet.</li>
+</ul>
+<p><strong>Cosa NON funziona offline:</strong> il primo accesso in assoluto (serve scaricare l&#39;app almeno una volta), l&#39;analisi rischi su una posizione mai interrogata prima, e il caricamento di zone di mappa mai visualizzate.</p>
+<blockquote>
+<p>💡 Per un campo in zona senza copertura di rete, apri ScoutSafe e naviga tutte le schede <strong>mentre sei ancora connesso</strong> (es. da casa o in auto), così l&#39;app avrà già in cache mappa, nodi e un&#39;analisi rischi recente prima di partire.</p>
+</blockquote>
+<hr>
+<h2>11. Affidabilità delle funzioni</h2>
+<p>Percentuali di affidabilità stimate per ogni funzione, con la motivazione. Le stime tengono conto della natura dei dati (deterministici o previsionali) e della qualità delle fonti.</p>
+<table>
+<thead>
+<tr>
+<th>Funzione</th>
+<th>Affidabilità stimata</th>
+<th>Motivazione</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Accesso e sessione</strong></td>
+<td>~99%</td>
+<td>Meccanismo semplice e deterministico; l&#39;unico punto di attenzione è la digitazione corretta delle credenziali</td>
+</tr>
+<tr>
+<td><strong>Consigliere di nodi</strong></td>
+<td>~95%</td>
+<td>Algoritmo deterministico su una banca dati curata di 15 nodi: a parità di input dà sempre lo stesso risultato. Il margine residuo riflette situazioni sul campo non catturabili da 7 parametri</td>
+</tr>
+<tr>
+<td><strong>Rilevazione GPS</strong></td>
+<td>~90%</td>
+<td>Dipende dal dispositivo e dall&#39;ambiente: all&#39;aperto la precisione è di pochi metri, al chiuso o in valli strette può degradare</td>
+</tr>
+<tr>
+<td><strong>Mappa</strong></td>
+<td>~98%</td>
+<td>Visualizzazione OpenStreetMap consolidata; richiede connessione per caricare le tessere della mappa</td>
+</tr>
+<tr>
+<td><strong>Rischio sismico</strong></td>
+<td>~90%</td>
+<td>Basato su terremoti <strong>realmente avvenuti</strong> (catalogo USGS, riferimento mondiale). Il limite: la sismicità passata non predice con certezza quella futura</td>
+</tr>
+<tr>
+<td><strong>Rischio vento</strong></td>
+<td>~80–85%</td>
+<td>Previsioni Open-Meteo a 7 giorni: molto buone nei primi 2–3 giorni (~90%), meno affidabili verso il settimo (~70%)</td>
+</tr>
+<tr>
+<td><strong>Rischio alluvione</strong></td>
+<td>~75–80%</td>
+<td>Basato sulle precipitazioni previste: buona approssimazione, ma il rischio reale dipende anche da fattori locali (pendenza, drenaggio, vicinanza a corsi d&#39;acqua) che l&#39;app non vede</td>
+</tr>
+<tr>
+<td><strong>Rischio temperatura</strong></td>
+<td>~85–90%</td>
+<td>Le previsioni di temperatura sono tra le più accurate; possibile scarto nei microclimi di montagna</td>
+</tr>
+<tr>
+<td><strong>Rischio neve</strong></td>
+<td>~80%</td>
+<td>Come per la pioggia: buone previsioni generali, variabilità locale in quota</td>
+</tr>
+<tr>
+<td><strong>Salvataggio storico</strong></td>
+<td>~95%</td>
+<td>Salvataggio locale immediato e affidabile; il rischio residuo è la cancellazione dei dati del browser</td>
+</tr>
+<tr>
+<td><strong>Rapporto</strong></td>
+<td>~98%</td>
+<td>Pura aggregazione di dati già validati nelle altre schede</td>
+</tr>
+</tbody></table>
+<p><strong>Come leggere queste percentuali:</strong> i valori vicini al 100% indicano funzioni deterministiche, che falliscono solo per cause esterne (connessione, permessi). I valori tra 75% e 90% riguardano funzioni <strong>previsionali</strong>: sono lo strumento giusto per decidere, ma vanno integrati con l&#39;osservazione diretta e il buon senso.</p>
+<hr>
+<h2>12. Domande frequenti</h2>
+<p><strong>Posso usare l&#39;app senza connessione?</strong>
+In parte. Una volta caricata, la navigazione tra le schede, i nodi e lo storico funzionano offline. L&#39;analisi dei rischi e il caricamento della mappa richiedono connessione.</p>
+<p><strong>Perché lo storico è vuoto su un altro dispositivo?</strong>
+I dati sono salvati localmente su ciascun dispositivo, non su un server. Ogni dispositivo ha il proprio storico.</p>
+<p><strong>Le previsioni sono aggiornate?</strong>
+Sì: ogni volta che apri la scheda Rischi, l&#39;app interroga i servizi in tempo reale. La data/ora dell&#39;analisi è indicata nella schermata.</p>
+<p><strong>Il GPS non funziona.</strong>
+Controlla di aver concesso il permesso di geolocalizzazione al browser (icona del lucchetto nella barra degli indirizzi → Autorizzazioni). In alternativa inserisci le coordinate a mano.</p>
+<p><strong>Posso stampare il rapporto?</strong>
+Sì, dalla scheda Rapporto usa la stampa del browser (<code>Ctrl+P</code> su computer, menu Condividi → Stampa su smartphone).</p>
+<p><strong>Ho dimenticato la password.</strong>
+Le credenziali sono gestite dall&#39;amministratore del progetto: contattalo per il recupero.</p>
+<p><strong>Posso avere una copia di sicurezza delle mie sessioni?</strong>
+Sì: vai in <strong>Profilo → Esporta backup (JSON)</strong> per scaricare tutte le sessioni in un file. Con <strong>Importa backup (JSON)</strong> puoi ricaricarle in qualsiasi momento, anche su un altro dispositivo o dopo aver reinstallato il browser.</p>
+<p><strong>L&#39;app funziona se non ho linea/rete durante il campo?</strong>
+In parte: se hai già aperto ScoutSafe almeno una volta con connessione, l&#39;app si installa in cache e resta utilizzabile (storico, nodi, mappa delle zone già viste). Vedi il <a href="#10-modalit%C3%A0-offline">capitolo 10</a> per i dettagli.</p>
+<hr>
+<h2>13. Avvertenze importanti</h2>
+<blockquote>
+<p>⚠️ <strong>ScoutSafe è uno strumento di supporto alle decisioni, non le sostituisce.</strong></p>
+<ul>
+<li>Le valutazioni di rischio si basano su previsioni e dati storici: verifica sempre le condizioni reali sul posto e i bollettini ufficiali (Protezione Civile, ARPA regionali).</li>
+<li>I nodi consigliati vanno eseguiti correttamente: in caso di dubbio, fatti seguire da un capo esperto. Un nodo giusto ma mal eseguito è un nodo sbagliato.</li>
+<li>Per attività critiche (ponti, teleferiche, soccorso) la supervisione di personale qualificato è sempre necessaria.</li>
+<li>La responsabilità finale della sicurezza del campo resta di chi lo conduce.</li>
+</ul>
+</blockquote>
+<p>Buon campo! ⛺</p>
+<hr>
+<h2>14. Per sviluppatori: build Android e iOS</h2>
+<p>Questo capitolo è tecnico: si rivolge a chi vuole compilare l&#39;app come applicazione nativa invece di usarla via browser/PWA. Il progetto usa <strong>Capacitor</strong>, che avvolge l&#39;app web in un contenitore nativo per Android e iOS.</p>
+<h3>14.1 Build Android</h3>
+<p><strong>Requisiti:</strong></p>
+<ul>
+<li><a href="https://nodejs.org/">Node.js</a> 20 o superiore</li>
+<li><a href="https://developer.android.com/studio">Android Studio</a> (include l&#39;Android SDK)</li>
+<li>Un JDK compatibile con Gradle. Android Studio include già un JDK adatto (percorso tipico su Windows: <code>C:\Program Files\Android\Android Studio\jbr</code>); se sul computer è installato anche un JDK molto recente (es. Java 24/25) come JDK &quot;di sistema&quot;, <strong>Gradle potrebbe non avviarsi</strong> con quello — in tal caso usa esplicitamente il JDK incluso in Android Studio (vedi sotto).</li>
+</ul>
+<p><strong>Passi:</strong></p>
+<ol>
+<li><p>Clona il repository e installa le dipendenze:</p>
+<pre><code class="language-bash">git clone https://github.com/Marctie/ScoutSafe.git
+cd ScoutSafe
+npm install
+</code></pre>
+</li>
+<li><p>Compila il progetto web e allinea la piattaforma Android (già presente nella cartella <code>android/</code>):</p>
+<pre><code class="language-bash">npm run build
+npx cap sync android
+</code></pre>
+</li>
+<li><p><strong>Opzione A — Android Studio (consigliata):</strong></p>
+<ul>
+<li>Apri la cartella <code>android/</code> come progetto in Android Studio.</li>
+<li>Attendi la sincronizzazione Gradle (automatica al primo avvio).</li>
+<li>Collega un telefono Android via USB con il <strong>debug USB attivo</strong>, oppure avvia un emulatore.</li>
+<li>Premi il pulsante ▶ <strong>Run</strong> per installare ed avviare l&#39;app sul dispositivo/emulatore.</li>
+<li>Per generare un APK installabile manualmente: menu <strong>Build → Build Bundle(s) / APK(s) → Build APK(s)</strong>. Il file compare in <code>android/app/build/outputs/apk/debug/app-debug.apk</code>.</li>
+</ul>
+<p><strong>Opzione B — riga di comando:</strong></p>
+<pre><code class="language-bash">cd android
+./gradlew assembleDebug
+</code></pre>
+<p>Se ottieni l&#39;errore <code>Unsupported class file major version</code>, il JDK di sistema è troppo recente per Gradle: imposta temporaneamente <code>JAVA_HOME</code> sul JDK incluso in Android Studio prima di lanciare il comando, ad esempio su Windows (PowerShell):</p>
+<pre><code class="language-powershell">$env:JAVA_HOME = &quot;C:\Program Files\Android\Android Studio\jbr&quot;
+$env:ANDROID_HOME = &quot;$env:LOCALAPPDATA\Android\Sdk&quot;
+./gradlew assembleDebug
+</code></pre>
+<p>L&#39;APK compilato si trova in <code>android/app/build/outputs/apk/debug/app-debug.apk</code>.</p>
+</li>
+<li><p><strong>Installare l&#39;APK su un telefono Android:</strong></p>
+<ul>
+<li>Copia il file <code>app-debug.apk</code> sul telefono (via cavo USB, email, cloud, ecc.).</li>
+<li>Sul telefono, apri il file: se richiesto, consenti l&#39;installazione da &quot;origini sconosciute&quot; per l&#39;app usata per aprirlo (impostazione richiesta una tantum da Android per motivi di sicurezza).</li>
+<li>Conferma l&#39;installazione. L&#39;icona di ScoutSafe comparirà tra le app installate.</li>
+<li>In alternativa, con il telefono collegato via USB e debug attivo, <code>npx cap run android</code> installa e avvia l&#39;app direttamente dal computer.</li>
+</ul>
+<p>Un APK di <strong>debug</strong> è pensato per test personali; per distribuirlo pubblicamente (Play Store) serve generare una build <strong>release firmata</strong> — la guida ufficiale è su <a href="https://capacitorjs.com/docs/android">capacitorjs.com/docs/android</a>.</p>
+</li>
+</ol>
+<h3>14.2 Build iOS</h3>
+<p><strong>Apple richiede obbligatoriamente un Mac con Xcode installato</strong>: non esiste un modo per compilare, firmare o installare un&#39;app iOS nativa da Windows o Linux, nemmeno con Capacitor (che si limita a generare un progetto Xcode — la compilazione vera e propria resta un passo che solo macOS può fare).</p>
+<p><strong>Se hai un Mac disponibile:</strong></p>
+<ol>
+<li>Installa <a href="https://apps.apple.com/app/xcode/id497799835">Xcode</a> dal Mac App Store (gratuito).</li>
+<li>Sul Mac, clona il repository e installa le dipendenze:<pre><code class="language-bash">git clone https://github.com/Marctie/ScoutSafe.git
+cd ScoutSafe
+npm install
+npm install @capacitor/ios
+</code></pre>
+</li>
+<li>Compila il progetto web e aggiungi/allinea la piattaforma iOS:<pre><code class="language-bash">npm run build
+npx cap add ios
+npx cap sync ios
+</code></pre>
+</li>
+<li>Apri il progetto in Xcode:<pre><code class="language-bash">npx cap open ios
+</code></pre>
+</li>
+<li>In Xcode:<ul>
+<li>Seleziona il progetto nel pannello di sinistra → scheda <strong>Signing &amp; Capabilities</strong>.</li>
+<li>In <strong>Team</strong>, seleziona il tuo Apple ID personale (per test su un tuo dispositivo, un Apple ID gratuito basta) oppure un <strong>Apple Developer Program</strong> attivo (99 $/anno) se vuoi pubblicare su App Store o distribuire a più persone con TestFlight.</li>
+<li>Collega l&#39;iPhone/iPad via cavo, selezionalo come dispositivo di destinazione in alto, e premi ▶ <strong>Run</strong>.</li>
+<li>Con un Apple ID gratuito, l&#39;app installata scade dopo 7 giorni e va ricompilata; con un account Developer a pagamento dura fino a un anno o è distribuibile via TestFlight/App Store.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Se non hai un Mac:</strong> le alternative realistiche sono:</p>
+<ul>
+<li>Usare un Mac in prestito (anche solo per un pomeriggio, il processo sopra richiede poco tempo).</li>
+<li>Un servizio di &quot;Mac in cloud&quot; a noleggio (es. MacStadium, MacinCloud).</li>
+<li>Un servizio di build CI con runner macOS, come <strong>Codemagic</strong> o <strong>Ionic Appflow</strong>, che compilano il progetto Capacitor/iOS nel cloud e restituiscono un file installabile o un link TestFlight, senza bisogno di possedere un Mac.</li>
+<li>Nel frattempo, <strong>installare ScoutSafe come PWA da Safari</strong> (vedi <a href="#2-installare-scoutsafe-sul-tuo-dispositivo">capitolo 2</a>) copre già icona home page e uso offline parziale, senza alcuna delle limitazioni sopra.</li>
+</ul>
+
+</div>
+</body>
+</html>

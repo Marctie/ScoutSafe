@@ -9,6 +9,31 @@ export interface GeoPosition {
 
 @Injectable({ providedIn: 'root' })
 export class GeolocationService {
+
+  /** Vero se il permesso di localizzazione (fine o approssimata) e' concesso. */
+  async hasPermission(): Promise<boolean> {
+    try {
+      const status = await Geolocation.checkPermissions();
+      return status.location === 'granted' || status.coarseLocation === 'granted';
+    } catch {
+      // Piattaforma/browser senza Permissions API (es. alcuni browser desktop): non blocchiamo l'uso,
+      // il prompt nativo del browser scattera' comunque al primo getCurrentPosition().
+      return true;
+    }
+  }
+
+  /** Controlla i permessi e, se non concessi, li richiede subito. Ritorna true se concessi al termine. */
+  async ensurePermission(): Promise<boolean> {
+    try {
+      const status = await Geolocation.checkPermissions();
+      if (status.location === 'granted' || status.coarseLocation === 'granted') return true;
+      const requested = await Geolocation.requestPermissions();
+      return requested.location === 'granted' || requested.coarseLocation === 'granted';
+    } catch {
+      return true;
+    }
+  }
+
   async getCurrentPosition(): Promise<GeoPosition> {
     try {
       const pos = await Geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000 });
