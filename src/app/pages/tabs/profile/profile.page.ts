@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
@@ -12,15 +12,13 @@ import { ScoutSession } from '../../../models/session.model';
   standalone: false
 })
 export class ProfilePage {
-  sessions: ScoutSession[] = [];
+  private auth = inject(AuthService);
+  private sessionSvc = inject(SessionService);
+  private router = inject(Router);
+  private alertCtrl = inject(AlertController);
+  private toast = inject(ToastController);
 
-  constructor(
-    private auth: AuthService,
-    private sessionSvc: SessionService,
-    private router: Router,
-    private alertCtrl: AlertController,
-    private toast: ToastController
-  ) {}
+  sessions: ScoutSession[] = [];
 
   ionViewWillEnter() { this.load(); }
 

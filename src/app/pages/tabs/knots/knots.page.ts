@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KnotRecommendationService } from '../../../services/knot-recommendation.service';
 import { KnotResult, KnotQuery } from '../../../models/knot.model';
@@ -13,12 +13,15 @@ export let lastKnotQuery: KnotQuery | null = null;
   standalone: false
 })
 export class KnotsPage {
+  private fb = inject(FormBuilder);
+  private knotSvc = inject(KnotRecommendationService);
+
   form: FormGroup;
   results: KnotResult[] = [];
   searched = false;
   expandedKnot: string | null = null;
 
-  constructor(private fb: FormBuilder, private knotSvc: KnotRecommendationService) {
+  constructor() {
     this.form = this.fb.group({
       useCase: ['anchor', Validators.required],
       ropeCondition: ['dry', Validators.required],

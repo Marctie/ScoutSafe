@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { GeolocationService } from '../../../services/geolocation.service';
@@ -21,25 +21,23 @@ export let campDetailsStore: CampDetails | null = null;
   styleUrls: ['./setup.page.scss'],
   standalone: false
 })
-export class SetupPage implements OnInit, AfterViewInit, OnDestroy {
+export class SetupPage implements AfterViewInit, OnDestroy {
+  private fb = inject(FormBuilder);
+  private geo = inject(GeolocationService);
+  private toast = inject(ToastController);
+  private loading = inject(LoadingController);
+
   form: FormGroup;
   private map?: L.Map;
   private marker?: L.Marker;
 
-  constructor(
-    private fb: FormBuilder,
-    private geo: GeolocationService,
-    private toast: ToastController,
-    private loading: LoadingController
-  ) {
+  constructor() {
     this.form = this.fb.group({
       name: ['Campo Scout', [Validators.required, Validators.minLength(3)]],
       lat: [41.9028, [Validators.required, Validators.min(-90), Validators.max(90)]],
       lng: [12.4964, [Validators.required, Validators.min(-180), Validators.max(180)]]
     });
   }
-
-  ngOnInit() {}
 
   ngAfterViewInit() {
     setTimeout(() => this.initMap(), 300);

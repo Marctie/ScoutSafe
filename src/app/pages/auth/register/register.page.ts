@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
@@ -11,21 +11,17 @@ import { AuthService } from '../../../services/auth.service';
   standalone: false
 })
 export class RegisterPage {
-  form: FormGroup;
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private router = inject(Router);
+  private loading = inject(LoadingController);
+  private alert = inject(AlertController);
 
-  constructor(
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private router: Router,
-    private loading: LoadingController,
-    private alert: AlertController
-  ) {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirm: ['', Validators.required]
-    }, { validators: this.passwordMatch });
-  }
+  form: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirm: ['', Validators.required]
+  }, { validators: this.passwordMatch });
 
   private passwordMatch(g: FormGroup) {
     return g.get('password')?.value === g.get('confirm')?.value ? null : { mismatch: true };

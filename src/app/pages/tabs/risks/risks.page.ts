@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { EnvironmentalRiskService, RiskAssessment, RiskLevel } from '../../../services/environmental-risk.service';
 import { campDetailsStore } from '../setup/setup.page';
@@ -12,11 +12,12 @@ export let lastRiskAssessment: RiskAssessment | null = null;
   standalone: false
 })
 export class RisksPage {
+  private riskSvc = inject(EnvironmentalRiskService);
+  private toast = inject(ToastController);
+
   assessment: RiskAssessment | null = null;
   loading = false;
   error = '';
-
-  constructor(private riskSvc: EnvironmentalRiskService, private toast: ToastController) {}
 
   get camp() { return campDetailsStore; }
 

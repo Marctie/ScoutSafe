@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { SessionService } from '../../../services/session.service';
@@ -12,17 +12,15 @@ import { ScoutSession } from '../../../models/session.model';
   standalone: false
 })
 export class HistoryPage implements OnInit {
+  private auth = inject(AuthService);
+  private sessionSvc = inject(SessionService);
+  private pdfSvc = inject(PdfReportService);
+  private alertCtrl = inject(AlertController);
+  private toast = inject(ToastController);
+
   sessions: ScoutSession[] = [];
   loading = false;
   expanded: string | null = null;
-
-  constructor(
-    private auth: AuthService,
-    private sessionSvc: SessionService,
-    private pdfSvc: PdfReportService,
-    private alertCtrl: AlertController,
-    private toast: ToastController
-  ) {}
 
   ngOnInit() { this.load(); }
 

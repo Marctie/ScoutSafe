@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -23,7 +23,8 @@ export interface RiskAssessment {
 
 @Injectable({ providedIn: 'root' })
 export class EnvironmentalRiskService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
+
 
   async assess(lat: number, lng: number): Promise<RiskAssessment> {
     const [weather, seismic] = await Promise.all([

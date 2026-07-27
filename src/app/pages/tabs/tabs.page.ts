@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
@@ -10,7 +10,10 @@ import { AuthService } from '../../services/auth.service';
   standalone: false
 })
 export class TabsPage {
-  constructor(private auth: AuthService, private router: Router, private alertCtrl: AlertController) {}
+  private auth = inject(AuthService);
+  private router = inject(Router);
+  private alertCtrl = inject(AlertController);
+
 
   async logout() {
     const alert = await this.alertCtrl.create({

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { SessionService } from '../../../services/session.service';
@@ -14,17 +14,15 @@ import { lastRiskAssessment } from '../risks/risks.page';
   standalone: false
 })
 export class ReportPage {
+  private auth = inject(AuthService);
+  private sessionSvc = inject(SessionService);
+  private pdfSvc = inject(PdfReportService);
+  private toast = inject(ToastController);
+  private loading = inject(LoadingController);
+
   notes = '';
   saved = false;
   today = new Date();
-
-  constructor(
-    private auth: AuthService,
-    private sessionSvc: SessionService,
-    private pdfSvc: PdfReportService,
-    private toast: ToastController,
-    private loading: LoadingController
-  ) {}
 
   get camp() { return campDetailsStore; }
   get knotResults() { return lastKnotResults; }
